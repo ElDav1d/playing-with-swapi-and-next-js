@@ -5,9 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
+    "@testing-library/dom": "^7.29.6",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.3",
+    "@types/jest": "^26.0.20",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
     "next": "10.0.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
