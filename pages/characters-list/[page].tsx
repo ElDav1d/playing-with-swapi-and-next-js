@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
+import Link from "next/Link";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../components/templates/Layout/Layout";
 
 const Title = styled.h1`
   color: red;
   margin: 1rem;
 `;
 
-type Character = {
+type CharacterItem = {
   name: string;
 };
 
 type Props = {
-  charactersOnPage: Character[];
+  charactersOnPage: CharacterItem[];
 };
 
 type PageIndex = {
@@ -40,17 +41,33 @@ export default function ListerPage({ charactersOnPage }: Props) {
     };
   }, []);
 
+  const calcItemId = (itemIndex: number, currentPage: number) => {
+    if (currentPage === 1) return itemIndex;
+    return itemIndex + (currentPage - 1) * 10;
+  };
+
+  const getItemId = (index: number) => {
+    const currentPage: number = +router.query.page;
+
+    return calcItemId(index + 1, currentPage);
+  };
+
   const charactersList = (
     <ul>
-      {charactersOnPage.map(({ name }) => (
-        <li key={name}>
-          <h2>{name}</h2>
+      {charactersOnPage.map(({ name }, index) => (
+        <li key={index}>
+          <Link href={`/character/${getItemId(index)}`}>
+            <a>
+              <h2>{name}</h2>
+              <p>{getItemId(index)}</p>
+            </a>
+          </Link>
         </li>
       ))}
     </ul>
   );
 
-  const pagginationHandler = (page: PageIndex) => {
+  const paginationHandler = (page: PageIndex) => {
     const selectedPath = (page.selected + 1).toString();
 
     router.push({
@@ -75,7 +92,7 @@ export default function ListerPage({ charactersOnPage }: Props) {
         activeClassName={"active"}
         containerClassName={"pagination"}
         subContainerClassName={"pages pagination"}
-        onPageChange={pagginationHandler}
+        onPageChange={paginationHandler}
       />
     </Layout>
   );
@@ -89,19 +106,29 @@ const getPageData = async (page: PageParam) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch("https://swapi.dev/api/people/");
+  const data = await res.json();
+  const charactersCount = data.count;
+  const maxCharsPerPage = data.results.length;
+
+  const pathsArray = () => {
+    let paths = [];
+    let counter = 0;
+    for (let index = 1; index < charactersCount; index += maxCharsPerPage) {
+      counter++;
+      const path = {
+        params: {
+          page: counter.toString(),
+        },
+      };
+      paths.push(path);
+    }
+    return paths;
+  };
+
   return {
-    paths: [
-      { params: { page: "1" } },
-      { params: { page: "2" } },
-      { params: { page: "3" } },
-      { params: { page: "4" } },
-      { params: { page: "5" } },
-      { params: { page: "6" } },
-      { params: { page: "7" } },
-      { params: { page: "8" } },
-      { params: { page: "9" } },
-    ],
-    fallback: false,
+    paths: pathsArray(),
+    fallback: true,
   };
 };
 

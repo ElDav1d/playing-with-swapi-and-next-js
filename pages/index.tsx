@@ -1,6 +1,6 @@
-import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
 import Link from "next/Link";
+import Layout from "../components/Layout/Layout";
 
 const Title = styled.h1`
   color: red;
