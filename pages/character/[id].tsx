@@ -3,7 +3,6 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import Layout from "../../components/templates/Layout/Layout";
 
 const Title = styled.h1`
-  color: red;
   margin: 1rem;
 `;
 

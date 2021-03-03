@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import { ReactNode } from "react";
 import Head from "next/head";
+import Header from "../../organisms/Header/Header";
+import Footer from "../../organisms/Footer/Footer";
 
 type Props = {
   children: ReactNode;
@@ -13,9 +15,9 @@ const Layout = ({ children, title }: Props) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <header>HEADER</header>
+      <Header />
       <main>{children}</main>
-      <footer>FOOTER</footer>
+      <Footer />
     </Fragment>
   );
 };

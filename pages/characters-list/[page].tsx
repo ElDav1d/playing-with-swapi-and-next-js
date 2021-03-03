@@ -5,9 +5,9 @@ import Link from "next/Link";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 import Layout from "../../components/templates/Layout/Layout";
+// import { useAppContext } from "../../../context/store.js";
 
 const Title = styled.h1`
-  color: red;
   margin: 1rem;
 `;
 
@@ -30,6 +30,7 @@ export default function ListerPage({ charactersOnPage }: Props) {
   const [isLoading, setLoading] = useState(false);
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
+  // const [state, dispatcher] = useAppContext();
 
   useEffect(() => {
     router.events.on("routeChangeStart", startLoading);

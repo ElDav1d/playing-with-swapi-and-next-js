@@ -1,26 +1,38 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: black;
+    color: #FFC500;
+    text-align: center;
+  }
+
   body,
-  h1 {
+  body * {
+    box-sizing: border-box;
+  }
+
+  body,
+  h1,
+  h3,
+  a,
+  ul {
     margin: 0;
     padding: 0;
   }
 
-  header {
-
-    padding: 1rem;
-    background-color: aquamarine;
-    width: 100%;
+  a {
+    display: block;
   }
 
+  header,
   footer {
     padding: 1rem;
-    background-color: aquamarine;
     width: 100%;
+    box-shadow: 0 1px 5px 2px rgba(255, 197, 0, 0.15);
   }
 
-  .pagination {
+  ul {
     list-style: none;
   }
 
