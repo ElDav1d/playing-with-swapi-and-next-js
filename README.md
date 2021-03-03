@@ -1,4 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DEVELOPING A NEXT.JS PROJECT FROM SCRATCH EXERCISE
+
+A Next.js / React challenge consisting on creating an Star Wars fansite with some content and features.
+
+## ACCEPTANCE CRITERIA
+
+Create an Star Wars fansite with the following content:
+
+1. Homepage:
+   a. Content:
+   I. Full screen carousel of images from Star Wars
+
+2. Lister page – List of Star Wars characters:
+   a. Content:
+   II. 10 items per page + pagination
+   II. Each character has few info + link to detail page of the character
+
+3. Detail page – Detail page of Star Wars character:
+   a. Content:
+   I. Extended info of the character
+   II. Title of the films where the character stars
+   III. Back to list link that takes you to the page you where
+
+4. Sitewide:
+   a. Header:
+   I. Visible in all pages
+   II. Content: 1. Logo to go back to homepage 2. Link to lister page 3. 3 last visited detail pages 4. Search field to filter characters
+   b. Footer:
+   I. Visible in all pages
+   II. Content: 1. Logo to go back to homepage 2. Copyright text
+
+## TECHNICAL REQUEST
+
+1. Use https://swapi.co to gather all the information needed
+
+2. For the carousel, look for 3 images yourself. You can use a library to build it
+
+3. Required tech stack:
+   I. React
+   II. Typescript
+
+4. Optional tech stack:
+   I. Next.js
+   II. Testing: Jest + React Testing Library
+   III: CSS: Styled components
+
+5. Don’t take into account extra info like: planets, vehicles and starships
 
 ## Getting Started
 
