@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
-import Link from "next/Link";
 import { useRouter } from "next/router";
-import ReactPaginate from "react-paginate";
 import Layout from "../../components/templates/Layout/Layout";
-// import { useAppContext } from "../../../context/store.js";
+import CharactersListContainer from "../../components/organisms/CharactersListContainer/CharactersListContainer";
 
 const Title = styled.h1`
   margin: 1rem;
@@ -19,10 +17,6 @@ type Props = {
   charactersOnPage: CharacterItem[];
 };
 
-type PageIndex = {
-  selected: number;
-};
-
 type PageParam = string;
 
 export default function ListerPage({ charactersOnPage }: Props) {
@@ -30,7 +24,6 @@ export default function ListerPage({ charactersOnPage }: Props) {
   const [isLoading, setLoading] = useState(false);
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
-  // const [state, dispatcher] = useAppContext();
 
   useEffect(() => {
     router.events.on("routeChangeStart", startLoading);
@@ -42,59 +35,10 @@ export default function ListerPage({ charactersOnPage }: Props) {
     };
   }, []);
 
-  const calcItemId = (itemIndex: number, currentPage: number) => {
-    if (currentPage === 1) return itemIndex;
-    return itemIndex + (currentPage - 1) * 10;
-  };
-
-  const getItemId = (index: number) => {
-    const currentPage: number = +router.query.page;
-
-    return calcItemId(index + 1, currentPage);
-  };
-
-  const charactersList = (
-    <ul>
-      {charactersOnPage.map(({ name }, index) => (
-        <li key={index}>
-          <Link href={`/character/${getItemId(index)}`}>
-            <a>
-              <h2>{name}</h2>
-              <p>{getItemId(index)}</p>
-            </a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-
-  const paginationHandler = (page: PageIndex) => {
-    const selectedPath = (page.selected + 1).toString();
-
-    router.push({
-      pathname: selectedPath,
-    });
-  };
-
   return (
     <Layout title="Star Wars Character Database Home Page">
       <Title>Lister Page{isLoading && ": loading... "}</Title>
-      {charactersList}
-      <ReactPaginate
-        pageCount={9}
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={2}
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakClassName={"break-me"}
-        pageClassName={"page-li"}
-        pageLinkClassName={"page-link"}
-        breakLabel={"..."}
-        activeClassName={"active"}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        onPageChange={paginationHandler}
-      />
+      <CharactersListContainer characters={charactersOnPage} />
     </Layout>
   );
 }
