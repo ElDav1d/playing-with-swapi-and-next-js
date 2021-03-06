@@ -3,20 +3,7 @@ import { createContext, useContext, useReducer } from 'react';
 const AppContext = createContext();
 
 const DEFAULT_STATE = {
-  visitedCharacterPages: [
-    {
-      name: 'Luke Skywalker',
-      path: '/character/1'
-    },
-    {
-      name: 'C-3PO',
-      path: '/character/2'
-    },
-    {
-      name: 'R2-D2',
-      path: '/character/3'
-    },
-  ]
+  visitedCharacterPages: []
 }
 
 const reducer = (state, action) => {
