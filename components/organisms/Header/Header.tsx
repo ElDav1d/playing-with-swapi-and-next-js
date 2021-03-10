@@ -1,11 +1,11 @@
 import Link from "next/Link";
 import LogoLink from "../../molecules/LogoLink/LogoLink";
-import { useAppContext } from "../../../context/store.js";
+import { useVisitedCharacters } from "../../../context/visitedCharacters";
 import { VisitedPages } from "../../../interfaces";
 import VisitedCharacterNavigation from "../../molecules/VisitedCharactersNavigation/VisitedCharactersNavigation";
 
 const Header = () => {
-  const [state] = useAppContext();
+  const { state } = useVisitedCharacters();
   const visitedPages: VisitedPages = state.visitedCharacterPages;
 
   return (

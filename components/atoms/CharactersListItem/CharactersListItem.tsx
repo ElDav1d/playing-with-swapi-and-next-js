@@ -1,6 +1,6 @@
 import Link from "next/Link";
 import { useRouter } from "next/router";
-import { useAppContext } from "../../../context/store";
+import { useVisitedCharacters } from "../../../context/visitedCharacters";
 import { VisitedPage, VisitedPages } from "../../../interfaces";
 
 type Props = {
@@ -11,10 +11,10 @@ type Props = {
 type ClickEvent = React.MouseEvent;
 
 const CharactersListItem = (props: Props) => {
-  const MAX_VISITED_PAGES = 3;
+  const MAX_VISITED_PAGES : number = 3;
   const router = useRouter();
-  const characterPath = `/character/${props.index}`;
-  const [state, dispatcher] = useAppContext();
+  const characterPath : string = `/character/${props.index}`;
+  const { state, dispatch } = useVisitedCharacters();
   const visitedPages = state.visitedCharacterPages;
 
   const getVisitedCharacter = (props: Props) => {
@@ -34,6 +34,7 @@ const CharactersListItem = (props: Props) => {
       payLoad.pop();
     }
     payLoad.unshift(getVisitedCharacter(props));
+  
     return payLoad;
   };
 
@@ -45,7 +46,7 @@ const CharactersListItem = (props: Props) => {
     event.preventDefault();
 
     if (!pageWasVisited(visitedPages, props)) {
-      dispatcher({
+      dispatch({
         type: "updateVisitedCharacterPages",
         payload: createPayLoad(props, MAX_VISITED_PAGES, visitedPages),
       });
