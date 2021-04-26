@@ -11,7 +11,7 @@ type Props = {
   characters: Characters;
 };
 
-const CharactersList = (props: Props) => {
+const CharactersList = ({ characters }: Props) => {
   const router = useRouter();
 
   const calcItemId = (itemIndex: number, currentPage: number) => {
@@ -27,7 +27,7 @@ const CharactersList = (props: Props) => {
 
   return (
     <ul>
-      {props.characters.map(({ name }, index) => (
+      {characters.map(({ name }, index) => (
         <CharactersListItem
           key={getItemId(index)}
           name={name}

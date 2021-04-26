@@ -11,10 +11,10 @@ type Props = {
   characters: Characters;
 };
 
-const CharactersListContainer = (props: Props) => {
+const CharactersListContainer = ({ characters }: Props) => {
   return (
     <section>
-      <CharactersList characters={props.characters} />
+      <CharactersList characters={characters} />
       <CharactersListPagination />
     </section>
   );

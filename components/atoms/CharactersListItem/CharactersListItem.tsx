@@ -10,45 +10,53 @@ type Props = {
 
 type ClickEvent = React.MouseEvent;
 
-const CharactersListItem = (props: Props) => {
-  const MAX_VISITED_PAGES : number = 3;
+const getVisitedCharacter = (name: string, path: string) => {
+  return {
+    name: name,
+    path: path,
+  };
+};
+
+const createPayLoad = (
+  name: string,
+  maxPages: number,
+  path: string,
+  pages: VisitedPages
+) => {
+  const payLoad = [...pages];
+  if (payLoad.length === maxPages) {
+    payLoad.pop();
+  }
+  payLoad.unshift(getVisitedCharacter(name, path));
+
+  return payLoad;
+};
+
+const pageWasVisited = (pages: VisitedPages, pageName: string) => {
+  return pages.find((page: VisitedPage) => page.name === pageName);
+};
+
+const CharactersListItem = ({ name, index }: Props) => {
+  const MAX_VISITED_PAGES: number = 3;
   const router = useRouter();
-  const characterPath : string = `/character/${props.index}`;
+  const characterPath: string = `/character/${index}`;
   const { state, dispatch } = useVisitedCharacters();
   const visitedPages = state.visitedCharacterPages;
-
-  const getVisitedCharacter = (props: Props) => {
-    return {
-      name: props.name,
-      path: characterPath,
-    };
-  };
-
-  const createPayLoad = (
-    props: Props,
-    maxPages: number,
-    state: VisitedPages
-  ) => {
-    let payLoad = [...state];
-    if (payLoad.length === maxPages) {
-      payLoad.pop();
-    }
-    payLoad.unshift(getVisitedCharacter(props));
-  
-    return payLoad;
-  };
-
-  const pageWasVisited = (state: VisitedPages, props: Props) => {
-    return state.find((page: VisitedPage) => page.name === props.name);
-  };
 
   const clickHandler = (event: ClickEvent) => {
     event.preventDefault();
 
-    if (!pageWasVisited(visitedPages, props)) {
+    if (!pageWasVisited(visitedPages, name)) {
+      const payLoad = createPayLoad(
+        name,
+        MAX_VISITED_PAGES,
+        characterPath,
+        visitedPages
+      );
+
       dispatch({
         type: "updateVisitedCharacterPages",
-        payload: createPayLoad(props, MAX_VISITED_PAGES, visitedPages),
+        payload: payLoad,
       });
     }
 
@@ -56,11 +64,11 @@ const CharactersListItem = (props: Props) => {
   };
 
   return (
-    <li key={props.index}>
+    <li key={index}>
       <Link href={characterPath}>
         <a onClick={clickHandler}>
-          <h2>{props.name}</h2>
-          <p>{props.index}</p>
+          <h2>{name}</h2>
+          <p>{index}</p>
         </a>
       </Link>
     </li>
