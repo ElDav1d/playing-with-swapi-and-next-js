@@ -9,11 +9,13 @@ const VisitedCharactersNavigationItem = (props: Props) => {
   const page = props.page;
 
   return (
-    <Link href={page.path}>
-      <a>
-        <li>{page.name}</li>
-      </a>
-    </Link>
+    <li>
+      <Link href={page.path}>
+        <a>
+          <p>{page.name}</p>
+        </a>
+      </Link>
+    </li>
   );
 };
 
