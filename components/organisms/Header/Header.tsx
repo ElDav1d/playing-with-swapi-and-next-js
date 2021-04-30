@@ -11,6 +11,7 @@ const Header = () => {
   const { state, dispatch } = useVisitedCharacters();
   const visitedPages: VisitedPages = state.visitedCharacterPages;
   const listerPath = "characters-list";
+  const FILTER_PLACEHOLDER_TEXT = "Type something";
 
   const inputHandler = (event: Event) => {
     const eTarget = event.target as HTMLInputElement;
@@ -27,7 +28,10 @@ const Header = () => {
         <a>Lister Page</a>
       </Link>
       {router.pathname.includes(listerPath) && (
-        <SearchInput onChange={inputHandler} />
+        <SearchInput
+          placeholder={FILTER_PLACEHOLDER_TEXT}
+          onChange={inputHandler}
+        />
       )}
       {visitedPages.length > 0 && (
         <VisitedCharacterNavigation pages={visitedPages} />
