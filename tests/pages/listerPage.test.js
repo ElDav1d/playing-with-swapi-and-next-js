@@ -8,7 +8,7 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       route: "/",
-      pathname: "",
+      pathname: "characters-list",
       query: { page: "1" },
       events: {
         on: () => { },
@@ -38,7 +38,7 @@ const propsMock = [
   },
 ]
 
-describe('ListerPage', () => {
+describe("Lister Page", () => {
   beforeEach(() => {
     render(
       <CharactersContextProvider>
@@ -47,7 +47,7 @@ describe('ListerPage', () => {
     );
   })
 
-  it('renders lister with one header, main and footer tags ', () => {
+  it("renders lister with one header, main and footer tags", () => {
     const header = screen.getByRole('banner',);
     const main = screen.getByRole('main');
     const footer = screen.getByRole('contentinfo');
@@ -57,7 +57,7 @@ describe('ListerPage', () => {
     expect(footer).toBeInTheDocument();
   })
 
-  it('renders a character list with linked items containing their own heading', () => {
+  it("renders a character list with linked items containing their own heading", () => {
     const list = screen.getAllByRole('list')[0];
     const listItems = within(list).getAllByRole('listitem');
     const targetedListItem = listItems[0];
@@ -65,9 +65,15 @@ describe('ListerPage', () => {
 
     expect(within(itemLink).getByRole('heading', { name: /fulano-el-yedai/i }));
   })
+
+  it("render's a filter search input", () => {
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+
+    expect(searchInput).toBeInTheDocument();
+  })
 })
 
-describe('page header displays', () => {
+describe("page header displays", () => {
   beforeEach(() => {
     render(
       <CharactersContextProvider>
@@ -76,11 +82,11 @@ describe('page header displays', () => {
     );
   })
 
-  it('no visited pages from start', () => {
+  it("no visited pages from start", () => {
     expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
   })
 
-  it('one visited character page when a list item is clicked', () => {
+  it("one visited character page when a list item is clicked", () => {
     const charactersList = screen.getAllByRole('list')[0];
     const characterslistItems = within(charactersList).getAllByRole('listitem');
     const targetedListItem = characterslistItems[0];
@@ -90,7 +96,7 @@ describe('page header displays', () => {
     expect(screen.queryByRole('navigation')).toBeInTheDocument();
   })
 
-  it('a maximum of three visited character pages', () => {
+  it("a maximum of three visited character pages", () => {
     const charactersList = screen.getAllByRole('list')[0];
     const characterslistItems = within(charactersList).getAllByRole('listitem');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
@@ -105,7 +111,7 @@ describe('page header displays', () => {
     expect(navListItems).toHaveLength(3);
   })
 
-  it('the same links if a visited character page is visited again and its link is already displayed', () => {
+  it("the same links if a visited character page is visited again and its link is already displayed", () => {
     const charactersList = screen.getAllByRole('list')[0];
     const characterslistItems = within(charactersList).getAllByRole('listitem');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
@@ -129,7 +135,7 @@ describe('page header displays', () => {
     expect(sameLink).toHaveAttribute('href', '/character/2');
   })
 
-  it('a new different link if a character page is visited and its link is not displayed yet', () => {
+  it("a new different link if a character page is visited and its link isn't displayed yet", () => {
     const charactersList = screen.getAllByRole('list')[0];
     const characterslistItems = within(charactersList).getAllByRole('listitem');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
