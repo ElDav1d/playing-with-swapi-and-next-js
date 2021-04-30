@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import GlobalStyle from "../styles/GlobalStyle";
-import { VisitedCharactersContextProvider } from "../context/visitedCharacters";
+import { CharactersContextProvider } from "../context/Characters";
 
 function MyApp({ Component, pageProps }) {
   return (
     <Fragment>
       <GlobalStyle />
-      <VisitedCharactersContextProvider>
+      <CharactersContextProvider>
         <Component {...pageProps} />
-      </VisitedCharactersContextProvider>
+      </CharactersContextProvider>
     </Fragment>
   );
 }

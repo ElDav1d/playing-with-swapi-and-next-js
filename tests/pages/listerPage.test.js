@@ -1,7 +1,7 @@
 import { render, screen, within } from '../test-utils.js';
 import userEvent from '@testing-library/user-event';
 
-import { VisitedCharactersContextProvider } from '../../context/visitedCharacters';
+import { CharactersContextProvider } from '../../context/Characters';
 import ListerPage from '../../pages/characters-list/[page].tsx';
 
 jest.mock('next/router', () => ({
@@ -41,9 +41,9 @@ const propsMock = [
 describe('ListerPage', () => {
   beforeEach(() => {
     render(
-      <VisitedCharactersContextProvider>
+      <CharactersContextProvider>
         <ListerPage charactersOnPage={propsMock} />
-      </VisitedCharactersContextProvider>
+      </CharactersContextProvider>
     );
   })
 
@@ -70,9 +70,9 @@ describe('ListerPage', () => {
 describe('page header displays', () => {
   beforeEach(() => {
     render(
-      <VisitedCharactersContextProvider>
+      <CharactersContextProvider>
         <ListerPage charactersOnPage={propsMock} />
-      </VisitedCharactersContextProvider>
+      </CharactersContextProvider>
     );
   })
 
@@ -124,12 +124,12 @@ describe('page header displays', () => {
     const navList = within(screen.queryByRole('navigation')).queryByRole('list');
     const visitedCharacters = within(navList).queryAllByRole('listitem');
     const lastVisitedCharacter = visitedCharacters[visitedCharacters.length - 1];
-    const sameLink = within(lastVisitedCharacter).queryByRole('link', { name: /wookie alopecico/i});
+    const sameLink = within(lastVisitedCharacter).queryByRole('link', { name: /wookie alopecico/i });
 
     expect(sameLink).toHaveAttribute('href', '/character/2');
   })
 
-  it('a new different link if a character page is visited and its link is not displayed yet' , () => {
+  it('a new different link if a character page is visited and its link is not displayed yet', () => {
     const charactersList = screen.getAllByRole('list')[0];
     const characterslistItems = within(charactersList).getAllByRole('listitem');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
@@ -147,7 +147,7 @@ describe('page header displays', () => {
 
     const navList = within(screen.queryByRole('navigation')).queryByRole('list');
     const visitedCharacters = within(navList).queryAllByRole('listitem');
-    const newLink = within(visitedCharacters[0]).queryByRole('link', { name: /fulano-el-yedai/i});
+    const newLink = within(visitedCharacters[0]).queryByRole('link', { name: /fulano-el-yedai/i });
 
     expect(newLink).toHaveAttribute('href', '/character/1');
   })

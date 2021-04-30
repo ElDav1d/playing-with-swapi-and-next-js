@@ -1,6 +1,6 @@
 import Link from "next/Link";
 import { useRouter } from "next/router";
-import { useVisitedCharacters } from "../../../context/visitedCharacters";
+import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPage, VisitedPages } from "../../../interfaces";
 
 type Props = {
@@ -25,7 +25,7 @@ const CharactersListItem = ({ name, index }: Props) => {
   const MAX_VISITED_PAGES: number = 3;
   const router = useRouter();
   const characterPath: string = `/character/${index}`;
-  const { state, dispatch } = useVisitedCharacters();
+  const { state, dispatch } = useCharactersContext();
   const visitedPages = state.visitedCharacterPages;
 
   const clickHandler = (event: ClickEvent) => {

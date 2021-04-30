@@ -1,14 +1,14 @@
 import Link from "next/Link";
 import LogoLink from "../../molecules/LogoLink/LogoLink";
 import { useRouter } from "next/router";
-import { useVisitedCharacters } from "../../../context/visitedCharacters";
+import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPages } from "../../../interfaces";
 import SearchInput from "../../atoms/SearchInput/SearchInput";
 import VisitedCharacterNavigation from "../../molecules/VisitedCharactersNavigation/VisitedCharactersNavigation";
 
 const Header = () => {
   const router = useRouter();
-  const { state, dispatch } = useVisitedCharacters();
+  const { state, dispatch } = useCharactersContext();
   const visitedPages: VisitedPages = state.visitedCharacterPages;
   const listerPath = "characters-list";
   const FILTER_PLACEHOLDER_TEXT = "Type something";

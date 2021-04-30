@@ -1,6 +1,6 @@
 import { render, screen, within } from '../test-utils';
 
-import { VisitedCharactersContextProvider } from '../../context/visitedCharacters';
+import { CharactersContextProvider } from '../../context/Characters';
 import CharactersListItem from '../../components/atoms/CharactersListItem/CharactersListItem';
 
 const propsMock = {
@@ -11,9 +11,9 @@ const propsMock = {
 describe(CharactersListItem, () => {
   it('renders a list item with a link to a character page', () => {
     render(
-      <VisitedCharactersContextProvider>
+      <CharactersContextProvider>
         <CharactersListItem name={propsMock.name} index={propsMock.index} />
-      </VisitedCharactersContextProvider >
+      </CharactersContextProvider >
     );
 
     const listItem = screen.getByRole('listitem');

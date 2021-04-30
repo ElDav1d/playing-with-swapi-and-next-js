@@ -27,7 +27,7 @@ const [mainReducer, initialState] = combineReducers<CombinedReducer>({
   filterCharactersKeyword: [filterKeywordReducer, initialFilterState],
 });
 
-const VisitedCharactersContext = createContext<
+const CharactersContext = createContext<
   | {
       state: State;
       dispatch: Dispatch;
@@ -35,9 +35,7 @@ const VisitedCharactersContext = createContext<
   | undefined
 >(undefined);
 
-const VisitedCharactersContextProvider = ({
-  children,
-}: ContextProviderProps) => {
+const CharactersContextProvider = ({ children }: ContextProviderProps) => {
   const [state, dispatch] = useReducer<CombinedReducer>(
     mainReducer,
     initialState
@@ -45,20 +43,20 @@ const VisitedCharactersContextProvider = ({
   const value = { state, dispatch };
 
   return (
-    <VisitedCharactersContext.Provider value={value}>
+    <CharactersContext.Provider value={value}>
       {children}
-    </VisitedCharactersContext.Provider>
+    </CharactersContext.Provider>
   );
 };
 
-const useVisitedCharacters = () => {
-  const context = useContext(VisitedCharactersContext);
+const useCharactersContext = () => {
+  const context = useContext(CharactersContext);
   if (context === undefined) {
     throw new Error(
-      "useVisitedCharacters must be used with a VisitedCharactersContextProvider"
+      "useCharactersContext must be used with a CharactersContextProvider"
     );
   }
   return context;
 };
 
-export { VisitedCharactersContextProvider, useVisitedCharacters };
+export { CharactersContextProvider, useCharactersContext };
