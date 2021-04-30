@@ -8,9 +8,17 @@ import VisitedCharacterNavigation from "../../molecules/VisitedCharactersNavigat
 
 const Header = () => {
   const router = useRouter();
-  const { state } = useVisitedCharacters();
+  const { state, dispatch } = useVisitedCharacters();
   const visitedPages: VisitedPages = state.visitedCharacterPages;
   const listerPath = "characters-list";
+
+  const inputHandler = (event: Event) => {
+    const eTarget = event.target as HTMLInputElement;
+    dispatch({
+      type: "UPDATE_FILTER_KEYWORD",
+      payload: eTarget.value.toLocaleLowerCase(),
+    });
+  };
 
   return (
     <header>
@@ -18,7 +26,9 @@ const Header = () => {
       <Link href={`/${listerPath}/1`}>
         <a>Lister Page</a>
       </Link>
-      {router.pathname.includes(listerPath) && <SearchInput />}
+      {router.pathname.includes(listerPath) && (
+        <SearchInput onChange={inputHandler} />
+      )}
       {visitedPages.length > 0 && (
         <VisitedCharacterNavigation pages={visitedPages} />
       )}

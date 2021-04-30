@@ -10,26 +10,11 @@ type Props = {
 
 type ClickEvent = React.MouseEvent;
 
-const getVisitedCharacter = (name: string, path: string) => {
+const createPayload = (name: string, path: string) => {
   return {
     name: name,
     path: path,
   };
-};
-
-const createPayLoad = (
-  name: string,
-  maxPages: number,
-  path: string,
-  pages: VisitedPages
-) => {
-  const payLoad = [...pages];
-  if (payLoad.length === maxPages) {
-    payLoad.pop();
-  }
-  payLoad.unshift(getVisitedCharacter(name, path));
-
-  return payLoad;
 };
 
 const pageWasVisited = (pages: VisitedPages, pageName: string) => {
@@ -47,16 +32,15 @@ const CharactersListItem = ({ name, index }: Props) => {
     event.preventDefault();
 
     if (!pageWasVisited(visitedPages, name)) {
-      const payLoad = createPayLoad(
-        name,
-        MAX_VISITED_PAGES,
-        characterPath,
-        visitedPages
-      );
-
+      if (visitedPages.length === MAX_VISITED_PAGES) {
+        dispatch({
+          type: "DELETE_VISITED_CHARACTER",
+          payload: "",
+        });
+      }
       dispatch({
-        type: "updateVisitedCharacterPages",
-        payload: payLoad,
+        type: "ADD_VISITED_CHARACTER",
+        payload: createPayload(name, characterPath),
       });
     }
 
