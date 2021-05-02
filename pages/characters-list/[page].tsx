@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
+import { CharacterItems } from "../../interfaces";
 import Layout from "../../components/templates/Layout/Layout";
 import CharactersListContainer from "../../components/organisms/CharactersListContainer/CharactersListContainer";
 
@@ -9,12 +10,8 @@ const Title = styled.h1`
   margin: 1rem;
 `;
 
-type CharacterItem = {
-  name: string;
-};
-
 type Props = {
-  charactersOnPage: CharacterItem[];
+  charactersOnPage: CharacterItems;
 };
 
 type PageParam = string;

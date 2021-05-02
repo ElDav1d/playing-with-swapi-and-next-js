@@ -5,6 +5,9 @@ import { VisitedPage, VisitedPages } from "../../../interfaces";
 
 type Props = {
   name: string;
+  species: string[];
+  homeworld: string;
+  films: string[];
   index: number;
 };
 
@@ -21,7 +24,13 @@ const pageWasVisited = (pages: VisitedPages, pageName: string) => {
   return pages.find((page: VisitedPage) => page.name === pageName);
 };
 
-const CharactersListItem = ({ name, index }: Props) => {
+const CharactersListItem = ({
+  name,
+  species,
+  homeworld,
+  films,
+  index,
+}: Props) => {
   const MAX_VISITED_PAGES: number = 3;
   const router = useRouter();
   const characterPath: string = `/character/${index}`;
@@ -48,10 +57,13 @@ const CharactersListItem = ({ name, index }: Props) => {
   };
 
   return (
-    <li key={index}>
+    <li key={index} style={{ wordBreak: "break-all" }}>
       <Link href={characterPath}>
         <a onClick={clickHandler}>
           <h2>{name}</h2>
+          <h3>{species}</h3>
+          <h3>{homeworld}</h3>
+          <h3>{films}</h3>
           <p>{index}</p>
         </a>
       </Link>

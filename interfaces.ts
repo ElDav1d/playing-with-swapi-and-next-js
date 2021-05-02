@@ -4,3 +4,12 @@ export type VisitedPage = {
 };
 
 export type VisitedPages = VisitedPage[];
+
+export type CharacterItem = {
+  name: string;
+  species: string[];
+  homeworld: string;
+  films: string[];
+};
+
+export type CharacterItems = CharacterItem[];

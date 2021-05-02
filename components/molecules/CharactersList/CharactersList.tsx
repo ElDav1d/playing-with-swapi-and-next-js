@@ -1,14 +1,9 @@
 import { useRouter } from "next/router";
+import { CharacterItems } from "../../../interfaces";
 import CharactersListItem from "../../atoms/CharactersListItem/CharactersListItem";
 
-type CharacterItem = {
-  name: string;
-};
-
-type Characters = CharacterItem[];
-
 type Props = {
-  characters: Characters;
+  characters: CharacterItems;
 };
 
 const CharactersList = ({ characters }: Props) => {
@@ -27,10 +22,13 @@ const CharactersList = ({ characters }: Props) => {
 
   return (
     <ul>
-      {characters.map(({ name }, index) => (
+      {characters.map(({ name, species, homeworld, films }, index) => (
         <CharactersListItem
           key={getItemId(index)}
           name={name}
+          species={species}
+          homeworld={homeworld}
+          films={films}
           index={getItemId(index)}
         />
       ))}

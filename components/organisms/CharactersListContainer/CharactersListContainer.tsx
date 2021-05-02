@@ -1,14 +1,9 @@
+import { CharacterItems } from "../../../interfaces";
 import CharactersList from "../../molecules/CharactersList/CharactersList";
 import CharactersListPagination from "../../molecules/CharacterListPagination/CharacterListPagination";
 
-type CharacterItem = {
-  name: string;
-};
-
-type Characters = CharacterItem[];
-
 type Props = {
-  characters: Characters;
+  characters: CharacterItems;
 };
 
 const CharactersListContainer = ({ characters }: Props) => {
