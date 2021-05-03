@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
@@ -18,23 +17,9 @@ type PageParam = string;
 
 export default function ListerPage({ charactersOnPage }: Props) {
   const router = useRouter();
-  const [isLoading, setLoading] = useState(false);
-  const startLoading = () => setLoading(true);
-  const stopLoading = () => setLoading(false);
-
-  useEffect(() => {
-    router.events.on("routeChangeStart", startLoading);
-    router.events.on("routeChangeComplete", stopLoading);
-
-    return () => {
-      router.events.off("routeChangeStart", startLoading);
-      router.events.off("routeChangeComplete", stopLoading);
-    };
-  }, []);
 
   return (
     <Layout title="Star Wars Character Database Home Page">
-      <Title>Lister Page{isLoading && ": loading... "}</Title>
       <CharactersListContainer characters={charactersOnPage} />
     </Layout>
   );
