@@ -1,5 +1,6 @@
 import Link from "next/Link";
 import { useRouter } from "next/router";
+import { link } from "node:fs";
 import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPage, VisitedPages } from "../../../interfaces";
 
@@ -61,9 +62,16 @@ const CharactersListItem = ({
       <Link href={characterPath}>
         <a onClick={clickHandler}>
           <h2>{name}</h2>
-          <h3>{species}</h3>
+          <h3>SPECIES</h3>
+          <p>{species}</p>
+          <h3>HOMEWORLD</h3>
           <h3>{homeworld}</h3>
-          <h3>{films}</h3>
+          <h3>FILMS</h3>
+          <ul>
+            {films.map((film, index) => (
+              <li key={index}>{film}</li>
+            ))}
+          </ul>
           <p>{index}</p>
         </a>
       </Link>
