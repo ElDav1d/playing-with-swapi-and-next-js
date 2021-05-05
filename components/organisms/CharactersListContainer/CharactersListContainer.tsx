@@ -9,7 +9,14 @@ type Props = {
 const CharactersListContainer = ({ characters }: Props) => {
   return (
     <section>
-      <CharactersList characters={characters} />
+      {characters.length ? (
+        <CharactersList characters={characters} />
+      ) : (
+        <>
+          <h2>These are not the droids you're looking for</h2>
+          <h3>Try searching for something else!</h3>
+        </>
+      )}
       <CharactersListPagination />
     </section>
   );
