@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
-import { useRouter } from "next/router";
+
 import { CharacterItems } from "../../interfaces";
 import Layout from "../../components/templates/Layout/Layout";
 import CharactersListContainer from "../../components/organisms/CharactersListContainer/CharactersListContainer";
@@ -16,8 +16,6 @@ type Props = {
 type PageParam = string;
 
 export default function ListerPage({ charactersOnPage }: Props) {
-  const router = useRouter();
-
   return (
     <Layout title="Star Wars Character Database Home Page">
       <CharactersListContainer characters={charactersOnPage} />
