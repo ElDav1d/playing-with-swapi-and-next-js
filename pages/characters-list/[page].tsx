@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
 
 import { CharacterItems } from "../../interfaces";
+import { useCharactersContext } from "../../context/Characters";
 import Layout from "../../components/templates/Layout/Layout";
 import CharactersListContainer from "../../components/organisms/CharactersListContainer/CharactersListContainer";
 
@@ -16,9 +17,22 @@ type Props = {
 type PageParam = string;
 
 export default function ListerPage({ charactersOnPage }: Props) {
+  const { state } = useCharactersContext();
+  const filterKeyword: string = state.filterCharactersKeyword;
+  const filteredCharacters = charactersOnPage.filter(
+    ({ name, species, homeworld, films }) => {
+      return (
+        name.toLowerCase().includes(filterKeyword) ||
+        species.join().toLowerCase().includes(filterKeyword) ||
+        homeworld.toLowerCase().includes(filterKeyword) ||
+        films.join().toLowerCase().includes(filterKeyword)
+      );
+    }
+  );
+
   return (
     <Layout title="Star Wars Character Database Home Page">
-      <CharactersListContainer characters={charactersOnPage} />
+      <CharactersListContainer characters={filteredCharacters} />
     </Layout>
   );
 }
@@ -76,7 +90,7 @@ const getArrayData = async (data: string[], key: string) => {
 
     return errorMessage.length ? errorMessage : nestedData;
   } else {
-    return "Sorry, this data is unknown!";
+    return ["Sorry, this data is unknown!"];
   }
 };
 
