@@ -7,6 +7,8 @@ import { VisitedPages } from "../../../interfaces";
 import SearchInput from "../../atoms/SearchInput/SearchInput";
 import VisitedCharacterNavigation from "../../molecules/VisitedCharactersNavigation/VisitedCharactersNavigation";
 
+type ClickEvent = React.MouseEvent;
+
 const Header = () => {
   const router = useRouter();
   const { state, dispatch } = useCharactersContext();
@@ -24,15 +26,18 @@ const Header = () => {
     const timer = setTimeout(() => {
       storeKeyword(query);
     }, 750);
+
     return () => clearTimeout(timer);
   }, [query]);
 
   const storeKeyword = (keyWord: string) => {
     const payload = keyWord.toLowerCase();
+
     dispatch({
       type: "UPDATE_FILTER_KEYWORD",
       payload: payload,
     });
+
     return payload;
   };
 
@@ -41,11 +46,22 @@ const Header = () => {
     setQuery(eTarget.value);
   };
 
+  const listerLinkHandler = (event: ClickEvent) => {
+    event.preventDefault();
+
+    dispatch({
+      type: "UPDATE_FILTER_KEYWORD",
+      payload: "",
+    });
+
+    router.push({ pathname: `/${listerPath}/1` });
+  };
+
   return (
     <header>
       <LogoLink />
       <Link href={`/${listerPath}/1`}>
-        <a>Lister Page</a>
+        <a onClick={listerLinkHandler}>Lister Page</a>
       </Link>
       {router.pathname.includes(listerPath) && (
         <SearchInput
