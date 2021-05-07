@@ -72,7 +72,6 @@ const CharactersListItem = ({
               <li key={index}>{film}</li>
             ))}
           </ul>
-          <p>{index}</p>
         </a>
       </Link>
     </li>

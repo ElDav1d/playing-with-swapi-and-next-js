@@ -1,5 +1,6 @@
 import { render, screen, within } from '../test-utils.js';
 import userEvent from '@testing-library/user-event';
+import { mockCharacterList } from '../../mocks';
 
 import { CharactersContextProvider } from '../../context/Characters';
 import ListerPage from '../../pages/characters-list/[page].tsx';
@@ -19,30 +20,11 @@ jest.mock('next/router', () => ({
   }
 }))
 
-const propsMock = [
-  {
-    name: "Fulano-El-Yedai",
-    index: 1,
-  },
-  {
-    name: "Wookie Alopecico",
-    index: 2,
-  },
-  {
-    name: "Princesa Lerda",
-    index: 3,
-  },
-  {
-    name: "Eewok Pivot",
-    index: 4,
-  },
-]
-
 describe("Lister Page", () => {
   beforeEach(() => {
     render(
       <CharactersContextProvider>
-        <ListerPage charactersOnPage={propsMock} />
+        <ListerPage charactersOnPage={mockCharacterList} />
       </CharactersContextProvider>
     );
   })
@@ -77,7 +59,7 @@ describe("page header displays", () => {
   beforeEach(() => {
     render(
       <CharactersContextProvider>
-        <ListerPage charactersOnPage={propsMock} />
+        <ListerPage charactersOnPage={mockCharacterList} />
       </CharactersContextProvider>
     );
   })
@@ -130,7 +112,7 @@ describe("page header displays", () => {
     const navList = within(screen.queryByRole('navigation')).queryByRole('list');
     const visitedCharacters = within(navList).queryAllByRole('listitem');
     const lastVisitedCharacter = visitedCharacters[visitedCharacters.length - 1];
-    const sameLink = within(lastVisitedCharacter).queryByRole('link', { name: /wookie alopecico/i });
+    const sameLink = within(lastVisitedCharacter).queryByRole('link', { name: /wookiee alopecico/i });
 
     expect(sameLink).toHaveAttribute('href', '/character/2');
   })
