@@ -1,7 +1,7 @@
 import Link from "next/Link";
 import LogoLink from "../../molecules/LogoLink/LogoLink";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPages } from "../../../interfaces";
 import SearchInput from "../../atoms/SearchInput/SearchInput";
@@ -11,22 +11,34 @@ const Header = () => {
   const router = useRouter();
   const { state, dispatch } = useCharactersContext();
   const visitedPages: VisitedPages = state.visitedCharacterPages;
-  const filterKeyword: string = state.filterCharactersKeyword;
+  const contextKeyword: string = state.filterCharactersKeyword;
   const listerPath = "characters-list";
   const FILTER_PLACEHOLDER_TEXT = "Type something";
+  const [query, setQuery] = useState<string>("");
 
-  const filterRef = useRef<HTMLInputElement>();
+  useEffect(() => {
+    setQuery(contextKeyword);
+  }, [contextKeyword]);
 
-  if (!filterKeyword && filterRef.current) {
-    filterRef.current.value = "";
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      storeKeyword(query);
+    }, 750);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  const storeKeyword = (keyWord: string) => {
+    const payload = keyWord.toLowerCase();
+    dispatch({
+      type: "UPDATE_FILTER_KEYWORD",
+      payload: payload,
+    });
+    return payload;
+  };
 
   const inputHandler = (event: Event) => {
     const eTarget = event.target as HTMLInputElement;
-    dispatch({
-      type: "UPDATE_FILTER_KEYWORD",
-      payload: eTarget.value.toLocaleLowerCase(),
-    });
+    setQuery(eTarget.value);
   };
 
   return (
@@ -37,9 +49,9 @@ const Header = () => {
       </Link>
       {router.pathname.includes(listerPath) && (
         <SearchInput
+          incomingValue={query}
           placeholder={FILTER_PLACEHOLDER_TEXT}
           onChange={inputHandler}
-          inputRef={filterRef}
         />
       )}
       {visitedPages.length > 0 && (
