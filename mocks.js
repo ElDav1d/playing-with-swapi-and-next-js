@@ -2,7 +2,7 @@ export const mockCharacter = {
   name: "Fulano-El-Yedai",
   species: [],
   homeworld: "Tontoine",
-  films: ["Spaceballs", "El Imperio contra Paca"],
+  films: ["Spaceballs", "El Imperio contra Paca", "El Entorno del Yedai"],
   index: 1
 }
 
@@ -19,7 +19,7 @@ export const mockCharacterList = [
     name: "Princesa Lerda",
     species: ["Human"],
     homeworld: "Tontoine",
-    films: ["Spaceballs", "El Imperio contra Paca"],
+    films: ["Spaceballs", "El Imperio contra Paca", "El Entorno del Yedai"],
     index: 3,
   },
   {

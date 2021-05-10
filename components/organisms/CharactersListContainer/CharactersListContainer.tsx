@@ -15,7 +15,7 @@ const CharactersListContainer = ({ characters }: Props) => {
           <CharactersList characters={characters} />
         </section>
       ) : (
-        <section>
+        <section data-testid="filter-fail-message-block">
           <h2>These are not the droids you're looking for</h2>
           <h3>Try searching for something else!</h3>
         </section>

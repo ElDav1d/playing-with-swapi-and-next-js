@@ -1,4 +1,4 @@
-import { render, screen, within } from '../test-utils.js';
+import { render, screen, within, act } from '../test-utils.js';
 import userEvent from '@testing-library/user-event';
 import { mockCharacterList } from '../../mocks';
 
@@ -139,5 +139,108 @@ describe("page header displays", () => {
     const newLink = within(visitedCharacters[0]).queryByRole('link', { name: /fulano-el-yedai/i });
 
     expect(newLink).toHaveAttribute('href', '/character/1');
+  })
+})
+
+describe("characters' list displays", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+
+    render(
+      <CharactersContextProvider>
+        <ListerPage charactersOnPage={mockCharacterList} />
+      </CharactersContextProvider>
+    );
+  })
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  })
+
+  it("no items when not matching search input", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const charactersList = screen.queryByTestId('characters-list');
+
+    expect(charactersList).toBeInTheDocument();
+
+    userEvent.type(searchInput, 'condemor');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const filterFailMessage = await screen.findByTestId('filter-fail-message-block');
+
+    expect(charactersList).not.toBeInTheDocument();
+    expect(filterFailMessage).toBeInTheDocument();
+  })
+
+  it("one item when specific search input match", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const charactersList = screen.queryByTestId('characters-list');
+
+    expect(charactersList).toBeInTheDocument();
+
+    userEvent.type(searchInput, 'fulano');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(1);
+  })
+
+  it("several items when non specific search input match", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+
+    userEvent.type(searchInput, 'yedai');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(2);
+  })
+
+  it("all items when changing lister page after filtering the current one", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const paginationButton = screen.getByRole('button', { name: /page 2/i })
+
+    expect(paginationButton).toBeInTheDocument()
+
+
+    userEvent.type(searchInput, 'yedai');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(2);
+
+    userEvent.click(paginationButton);
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const newCharactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(newCharactersListItems).toHaveLength(4);
+  })
+
+  it("all items when coming back from any other page", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const listerPageLink = screen.getByRole('link', { name: /lister page/i })
+
+    userEvent.type(searchInput, 'yedai');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(2);
+
+    userEvent.click(listerPageLink);
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const newCharactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(newCharactersListItems).toHaveLength(4);
   })
 })
