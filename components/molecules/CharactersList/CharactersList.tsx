@@ -21,7 +21,7 @@ const CharactersList = ({ characters }: Props) => {
   };
 
   return (
-    <ul>
+    <ul data-testid="characters-list">
       {characters.map(({ name, species, homeworld, films }, index) => (
         <CharactersListItem
           key={getItemId(index)}

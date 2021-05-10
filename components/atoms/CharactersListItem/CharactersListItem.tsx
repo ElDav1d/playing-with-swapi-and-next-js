@@ -58,7 +58,11 @@ const CharactersListItem = ({
   };
 
   return (
-    <li key={index} style={{ wordBreak: "break-all" }}>
+    <li
+      key={index}
+      data-testid="characters-list-item"
+      style={{ wordBreak: "break-all" }}
+    >
       <Link href={characterPath}>
         <a onClick={clickHandler}>
           <h2>{name}</h2>

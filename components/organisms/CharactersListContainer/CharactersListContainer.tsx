@@ -8,17 +8,22 @@ type Props = {
 
 const CharactersListContainer = ({ characters }: Props) => {
   return (
-    <section>
+    <article>
       {characters.length ? (
-        <CharactersList characters={characters} />
+        <section>
+          <h2>Lister Page</h2>
+          <CharactersList characters={characters} />
+        </section>
       ) : (
-        <>
+        <section>
           <h2>These are not the droids you're looking for</h2>
           <h3>Try searching for something else!</h3>
-        </>
+        </section>
       )}
-      <CharactersListPagination />
-    </section>
+      <section>
+        <CharactersListPagination />
+      </section>
+    </article>
   );
 };
 

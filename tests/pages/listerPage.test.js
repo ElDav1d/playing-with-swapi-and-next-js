@@ -69,8 +69,8 @@ describe("page header displays", () => {
   })
 
   it("one visited character page when a list item is clicked", () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const targetedListItem = characterslistItems[0];
     const itemLink = within(targetedListItem).getByRole('link');
 
@@ -79,9 +79,10 @@ describe("page header displays", () => {
   })
 
   it("a maximum of three visited character pages", () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
+
 
     charactersLinks.map(link => {
       userEvent.click(link);
@@ -94,8 +95,8 @@ describe("page header displays", () => {
   })
 
   it("the same links if a visited character page is visited again and its link is already displayed", () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
 
     const clickAllCharacters = () => {
@@ -118,8 +119,8 @@ describe("page header displays", () => {
   })
 
   it("a new different link if a character page is visited and its link isn't displayed yet", () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
 
     const clickAllCharacters = () => {
