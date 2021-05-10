@@ -15,6 +15,7 @@ const Header = () => {
   const visitedPages: VisitedPages = state.visitedCharacterPages;
   const contextKeyword: string = state.filterCharactersKeyword;
   const listerPath = "characters-list";
+  const FILTER_LEGEND_TEXT = "Filter by Name, Species, Homeworld or Film";
   const FILTER_PLACEHOLDER_TEXT = "Type something";
   const [query, setQuery] = useState<string>("");
 
@@ -64,11 +65,14 @@ const Header = () => {
         <a onClick={listerLinkHandler}>Lister Page</a>
       </Link>
       {router.pathname.includes(listerPath) && (
-        <SearchInput
-          incomingValue={query}
-          placeholder={FILTER_PLACEHOLDER_TEXT}
-          onChange={inputHandler}
-        />
+        <form>
+          <SearchInput
+            incomingValue={query}
+            legendText={FILTER_LEGEND_TEXT}
+            placeholderText={FILTER_PLACEHOLDER_TEXT}
+            onChange={inputHandler}
+          />
+        </form>
       )}
       {visitedPages.length > 0 && (
         <VisitedCharacterNavigation pages={visitedPages} />

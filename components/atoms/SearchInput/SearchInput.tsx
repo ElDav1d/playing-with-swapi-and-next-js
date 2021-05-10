@@ -3,12 +3,18 @@ import { useState, useEffect } from "react";
 type incomingEvent = any;
 
 type Props = {
+  legendText: string;
   incomingValue: string;
-  placeholder: string;
+  placeholderText: string;
   onChange: (event: incomingEvent) => void;
 };
 
-const SearchInput = ({ incomingValue, placeholder, onChange }: Props) => {
+const SearchInput = ({
+  incomingValue,
+  legendText,
+  placeholderText,
+  onChange,
+}: Props) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   useEffect(() => {
@@ -16,14 +22,15 @@ const SearchInput = ({ incomingValue, placeholder, onChange }: Props) => {
   }, [incomingValue]);
 
   return (
-    <div>
+    <fieldset>
+      <legend>{legendText}</legend>
       <input
         type="text"
         value={inputValue}
-        placeholder={placeholder}
+        placeholder={placeholderText}
         onChange={onChange}
       />
-    </div>
+    </fieldset>
   );
 };
 
