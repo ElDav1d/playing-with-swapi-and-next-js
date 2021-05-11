@@ -3,7 +3,7 @@ import { VisitedPage, VisitedPages } from "../interfaces.js";
 type Action = { type: string; payload: VisitedPage };
 type State = VisitedPages;
 
-export const initialVisitedCharactersState: VisitedPages = [];
+export const initialVisitedCharactersState: State = [];
 
 export const visitedCharactersReducer = (state: State, action: Action) => {
   switch (action.type) {
