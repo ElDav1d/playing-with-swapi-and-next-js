@@ -1,14 +1,15 @@
-import { render, screen, within } from '../test-utils.js';
+import { render, screen, within, act } from '../test-utils.js';
 import userEvent from '@testing-library/user-event';
+import { mockCharacterList } from '../../mocks';
 
-import { VisitedCharactersContextProvider } from '../../context/visitedCharacters';
+import { CharactersContextProvider } from '../../context/Characters';
 import ListerPage from '../../pages/characters-list/[page].tsx';
 
 jest.mock('next/router', () => ({
   useRouter() {
     return {
       route: "/",
-      pathname: "",
+      pathname: "characters-list",
       query: { page: "1" },
       events: {
         on: () => { },
@@ -19,35 +20,16 @@ jest.mock('next/router', () => ({
   }
 }))
 
-const propsMock = [
-  {
-    name: "Fulano-El-Yedai",
-    index: 1,
-  },
-  {
-    name: "Wookie Alopecico",
-    index: 2,
-  },
-  {
-    name: "Princesa Lerda",
-    index: 3,
-  },
-  {
-    name: "Eewok Pivot",
-    index: 4,
-  },
-]
-
-describe('ListerPage', () => {
+describe("Lister Page", () => {
   beforeEach(() => {
     render(
-      <VisitedCharactersContextProvider>
-        <ListerPage charactersOnPage={propsMock} />
-      </VisitedCharactersContextProvider>
+      <CharactersContextProvider>
+        <ListerPage charactersOnPage={mockCharacterList} />
+      </CharactersContextProvider>
     );
   })
 
-  it('renders lister with one header, main and footer tags ', () => {
+  it("renders lister with one header, main and footer tags", () => {
     const header = screen.getByRole('banner',);
     const main = screen.getByRole('main');
     const footer = screen.getByRole('contentinfo');
@@ -57,7 +39,7 @@ describe('ListerPage', () => {
     expect(footer).toBeInTheDocument();
   })
 
-  it('renders a character list with linked items containing their own heading', () => {
+  it("renders a character list with linked items containing their own heading", () => {
     const list = screen.getAllByRole('list')[0];
     const listItems = within(list).getAllByRole('listitem');
     const targetedListItem = listItems[0];
@@ -65,24 +47,30 @@ describe('ListerPage', () => {
 
     expect(within(itemLink).getByRole('heading', { name: /fulano-el-yedai/i }));
   })
+
+  it("render's a filter search input", () => {
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+
+    expect(searchInput).toBeInTheDocument();
+  })
 })
 
-describe('page header displays', () => {
+describe("page header displays", () => {
   beforeEach(() => {
     render(
-      <VisitedCharactersContextProvider>
-        <ListerPage charactersOnPage={propsMock} />
-      </VisitedCharactersContextProvider>
+      <CharactersContextProvider>
+        <ListerPage charactersOnPage={mockCharacterList} />
+      </CharactersContextProvider>
     );
   })
 
-  it('no visited pages from start', () => {
+  it("no visited pages from start", () => {
     expect(screen.queryByRole('navigation')).not.toBeInTheDocument();
   })
 
-  it('one visited character page when a list item is clicked', () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+  it("one visited character page when a list item is clicked", () => {
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const targetedListItem = characterslistItems[0];
     const itemLink = within(targetedListItem).getByRole('link');
 
@@ -90,10 +78,11 @@ describe('page header displays', () => {
     expect(screen.queryByRole('navigation')).toBeInTheDocument();
   })
 
-  it('a maximum of three visited character pages', () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+  it("a maximum of three visited character pages", () => {
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
+
 
     charactersLinks.map(link => {
       userEvent.click(link);
@@ -105,9 +94,9 @@ describe('page header displays', () => {
     expect(navListItems).toHaveLength(3);
   })
 
-  it('the same links if a visited character page is visited again and its link is already displayed', () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+  it("the same links if a visited character page is visited again and its link is already displayed", () => {
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
 
     const clickAllCharacters = () => {
@@ -124,14 +113,14 @@ describe('page header displays', () => {
     const navList = within(screen.queryByRole('navigation')).queryByRole('list');
     const visitedCharacters = within(navList).queryAllByRole('listitem');
     const lastVisitedCharacter = visitedCharacters[visitedCharacters.length - 1];
-    const sameLink = within(lastVisitedCharacter).queryByRole('link', { name: /wookie alopecico/i});
+    const sameLink = within(lastVisitedCharacter).queryByRole('link', { name: /wookiee alopecico/i });
 
     expect(sameLink).toHaveAttribute('href', '/character/2');
   })
 
-  it('a new different link if a character page is visited and its link is not displayed yet' , () => {
-    const charactersList = screen.getAllByRole('list')[0];
-    const characterslistItems = within(charactersList).getAllByRole('listitem');
+  it("a new different link if a character page is visited and its link isn't displayed yet", () => {
+    const charactersList = screen.getByTestId('characters-list');
+    const characterslistItems = within(charactersList).getAllByTestId('characters-list-item');
     const charactersLinks = characterslistItems.map(item => within(item).getByRole('link'));
 
     const clickAllCharacters = () => {
@@ -147,8 +136,111 @@ describe('page header displays', () => {
 
     const navList = within(screen.queryByRole('navigation')).queryByRole('list');
     const visitedCharacters = within(navList).queryAllByRole('listitem');
-    const newLink = within(visitedCharacters[0]).queryByRole('link', { name: /fulano-el-yedai/i});
+    const newLink = within(visitedCharacters[0]).queryByRole('link', { name: /fulano-el-yedai/i });
 
     expect(newLink).toHaveAttribute('href', '/character/1');
+  })
+})
+
+describe("characters' list displays", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+
+    render(
+      <CharactersContextProvider>
+        <ListerPage charactersOnPage={mockCharacterList} />
+      </CharactersContextProvider>
+    );
+  })
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  })
+
+  it("no items when not matching search input", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const charactersList = screen.queryByTestId('characters-list');
+
+    expect(charactersList).toBeInTheDocument();
+
+    userEvent.type(searchInput, 'condemor');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const filterFailMessage = await screen.findByTestId('filter-fail-message-block');
+
+    expect(charactersList).not.toBeInTheDocument();
+    expect(filterFailMessage).toBeInTheDocument();
+  })
+
+  it("one item when specific search input match", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const charactersList = screen.queryByTestId('characters-list');
+
+    expect(charactersList).toBeInTheDocument();
+
+    userEvent.type(searchInput, 'fulano');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(1);
+  })
+
+  it("several items when non specific search input match", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+
+    userEvent.type(searchInput, 'yedai');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(2);
+  })
+
+  it("all items when changing lister page after filtering the current one", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const paginationButton = screen.getByRole('button', { name: /page 2/i })
+
+    expect(paginationButton).toBeInTheDocument()
+
+
+    userEvent.type(searchInput, 'yedai');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(2);
+
+    userEvent.click(paginationButton);
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const newCharactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(newCharactersListItems).toHaveLength(4);
+  })
+
+  it("all items when coming back from any other page", async () => {
+    const DEBOUNCE_TIME = 750
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+    const listerPageLink = screen.getByRole('link', { name: /lister page/i })
+
+    userEvent.type(searchInput, 'yedai');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const charactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(charactersListItems).toHaveLength(2);
+
+    userEvent.click(listerPageLink);
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const newCharactersListItems = await screen.findAllByTestId('characters-list-item');
+
+    expect(newCharactersListItems).toHaveLength(4);
   })
 })

@@ -774,6 +774,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
+"@types/react-combine-reducers@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-combine-reducers/-/react-combine-reducers-1.0.0.tgz#1dbfa398872890f23b5c450de9f8fc1af9ad90d0"
+  integrity sha512-FRR5PBN1/2xZ83huIC/H8JHE51srN5cW216qwebauNVv6SXPkyH8RWwIqSUkxhaw8bYwZGyVQ++o/uBYvdLBBw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^17.0.2":
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
@@ -1602,6 +1609,11 @@ core-js-pure@^3.0.0:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.9.0.tgz#326cc74e1fef8b7443a6a793ddb0adfcd81f9efb"
   integrity sha512-3pEcmMZC9Cq0D4ZBh3pe2HLtqxpGNJBLXF/kZ2YzK17RbKp94w0HFbdbSx8H8kAlZG5k76hvLrkPm57Uyef+kg==
+
+core-js@^3.6.5:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.11.1.tgz#f920392bf8ed63a0ec8e4e729857bfa3d121c525"
+  integrity sha512-k93Isqg7e4txZWMGNYwevZL9MiogLk8pd1PtwrmFmi8IBq4GXqUaVW/a33Llt6amSI36uSjd0GWwc9pTT9ALlQ==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -4166,6 +4178,13 @@ rc@^1.2.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
+
+react-combine-reducers@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-combine-reducers/-/react-combine-reducers-1.1.1.tgz#e746e9bce279d8b1e83d8e5b8a07e80c18e472ed"
+  integrity sha512-wHVJj9RdtoqSY8np9CFgOjUxHZwrlKvETOyJ3EZwDrVkQ8evz/Kl9khZ1ZzcirdNwAAWa2gDNqPfDsYtMtoHBQ==
+  dependencies:
+    core-js "^3.6.5"
 
 react-dom@17.0.1:
   version "17.0.1"
