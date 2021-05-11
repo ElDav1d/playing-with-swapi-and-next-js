@@ -7,6 +7,8 @@ type Props = {
 };
 
 const CharactersListContainer = ({ characters }: Props) => {
+  const FILTER_FAIL_HEADING = "These are not the droids you're looking for";
+  const FILTER_FAIL_SUBHEADING = "Try searching for something else!";
   return (
     <article>
       {characters.length ? (
@@ -16,8 +18,8 @@ const CharactersListContainer = ({ characters }: Props) => {
         </section>
       ) : (
         <section data-testid="filter-fail-message-block">
-          <h2>These are not the droids you're looking for</h2>
-          <h3>Try searching for something else!</h3>
+          <h2>{FILTER_FAIL_HEADING}</h2>
+          <h3>{FILTER_FAIL_SUBHEADING}</h3>
         </section>
       )}
       <section>
