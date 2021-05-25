@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
 
 import { CharacterDetailData } from "../../interfaces";
+import GoBackLink from "../../components/atoms/GoBackLink/GoBackLink";
 import Layout from "../../components/templates/Layout/Layout";
 
 const Title = styled.h1`
@@ -39,6 +40,7 @@ export default function CharacterPage({ character }: Props) {
           <li key={index}>{film}</li>
         ))}
       </ul>
+      <GoBackLink />
     </Layout>
   );
 }
