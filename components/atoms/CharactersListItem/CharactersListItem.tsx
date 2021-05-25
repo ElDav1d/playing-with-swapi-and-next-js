@@ -1,6 +1,5 @@
 import Link from "next/Link";
 import { useRouter } from "next/router";
-import { link } from "node:fs";
 import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPage, VisitedPages } from "../../../interfaces";
 
