@@ -26,3 +26,8 @@ export type CharacterDetailData = {
   gender: string;
   films: string[];
 };
+
+export type CharacterDetailItem = {
+  detailTitle: string;
+  detailContent: string | string[];
+};

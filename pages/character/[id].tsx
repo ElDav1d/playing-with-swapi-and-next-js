@@ -3,6 +3,7 @@ import { GetStaticProps, GetStaticPaths } from "next";
 
 import { CharacterDetailData } from "../../interfaces";
 import GoBackLink from "../../components/atoms/GoBackLink/GoBackLink";
+import CharacterDetailsList from "../../components/molecules/CharacterDetailsList/CharaterDetailsList";
 import Layout from "../../components/templates/Layout/Layout";
 
 const Title = styled.h1`
@@ -19,27 +20,7 @@ export default function CharacterPage({ character }: Props) {
   return (
     <Layout title={`${character.name}'s page`}>
       <Title>{character.name}</Title>
-      <h2>SPECIES</h2>
-      <p>{character.species}</p>
-      <h2>HOMEWORLD</h2>
-      <p>{character.homeworld}</p>
-      <h2>HEIGHT</h2>
-      <p>{character.height}</p>
-      <h2>MASS</h2>
-      <p>{character.mass}</p>
-      <h2>HAIR COLOR</h2>
-      <p>{character.hair_color}</p>
-      <h2>SKIN COLOR</h2>
-      <p>{character.skin_color}</p>
-      <h2>EYE COLOR</h2>
-      <p>{character.eye_color}</p>
-      <h2>GENDER</h2>
-      <p>{character.gender}</p>
-      <ul>
-        {character.films.map((film, index) => (
-          <li key={index}>{film}</li>
-        ))}
-      </ul>
+      <CharacterDetailsList details={character} />
       <GoBackLink />
     </Layout>
   );
