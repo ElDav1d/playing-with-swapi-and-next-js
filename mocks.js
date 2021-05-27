@@ -1,6 +1,6 @@
 export const mockCharacter = {
   name: "Fulano-El-Yedai",
-  species: [],
+  species: ["Sorry, this data is unknown!"],
   homeworld: "Tontoine",
   films: ["Spaceballs", "El Imperio contra Paca", "El Entorno del Yedai"],
   index: 1
@@ -30,3 +30,16 @@ export const mockCharacterList = [
     index: 4,
   },
 ]
+
+export const mockCharacterDetails = {
+  name: "Fulano-El-Yedai",
+  species: ["Sorry, this data is unknown!"],
+  homeworld: "Tontoine",
+  films: ["Spaceballs", "El Imperio contra Paca", "El Entorno del Yedai"],
+  height: "150",
+  mass: "200",
+  hair_color: "baldy",
+  skin_color: "dirty",
+  eye_color: "red",
+  gender: "male",
+}

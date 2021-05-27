@@ -23,13 +23,13 @@ const CharacterDetailsItem = ({
     );
   };
 
-  const isNotArray = (content: string | string[]) =>
+  const isSingleString = (content: string | string[]) =>
     typeof content === "string" || content.length === 1;
 
   return (
     <li>
       <h2>{formatTitle(detailTitle)}</h2>
-      {isNotArray(detailContent) ? (
+      {isSingleString(detailContent) ? (
         <p>{detailContent}</p>
       ) : (
         <ListedContent content={detailContent} />
