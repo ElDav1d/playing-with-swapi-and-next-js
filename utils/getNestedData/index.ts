@@ -1,0 +1,1 @@
+export { getNestedData } from "./getNestedData";
