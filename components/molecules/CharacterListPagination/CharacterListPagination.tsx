@@ -9,7 +9,8 @@ type PageIndex = {
 const CharacterListPagination = () => {
   const { dispatch } = useCharactersContext();
   const router = useRouter();
-  const paginationHandler = (page: PageIndex) => {
+
+  const paginationHandler = (page: PageIndex): void => {
     const selectedPath = (page.selected + 1).toString();
 
     dispatch({
@@ -20,6 +21,8 @@ const CharacterListPagination = () => {
     router.push({
       pathname: selectedPath,
     });
+
+    return;
   };
 
   return (

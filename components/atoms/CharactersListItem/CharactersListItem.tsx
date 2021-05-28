@@ -37,7 +37,7 @@ const CharactersListItem = ({
   const { state, dispatch } = useCharactersContext();
   const visitedPages = state.visitedCharacterPages;
 
-  const clickHandler = (event: ClickEvent) => {
+  const clickHandler = (event: ClickEvent): void => {
     event.preventDefault();
 
     if (!pageWasVisited(visitedPages, name)) {
@@ -54,6 +54,7 @@ const CharactersListItem = ({
     }
 
     router.push({ pathname: characterPath });
+    return;
   };
 
   return (

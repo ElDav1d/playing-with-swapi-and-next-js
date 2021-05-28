@@ -26,9 +26,9 @@ const GoBackLink = () => {
   const currentQuery = router.query.id.toString();
   const listerPath = "characters-list";
 
-  const getListerPageQuery = (queryID: string) => {
+  const getListerPageQuery = (queryID: string): number => {
     const characterID = parseInt(queryID);
-    let listerPageQuery: number;
+    let listerPageQuery;
     switch (true) {
       case characterID < 11:
         listerPageQuery = 1;

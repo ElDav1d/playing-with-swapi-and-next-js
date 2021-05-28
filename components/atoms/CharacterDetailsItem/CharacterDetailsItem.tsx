@@ -4,10 +4,10 @@ const CharacterDetailsItem = ({
   detailTitle,
   detailContent,
 }: CharacterDetailItem) => {
-  const removeUnderscore = (name: string) =>
+  const removeUnderscore = (name: string): string =>
     name.includes("_") ? name.replace("_", " ") : name;
 
-  const formatTitle = (name: string) => {
+  const formatTitle = (name: string): string => {
     return removeUnderscore(name.toUpperCase());
   };
 
@@ -23,7 +23,7 @@ const CharacterDetailsItem = ({
     );
   };
 
-  const isSingleString = (content: string | string[]) =>
+  const isSingleString = (content: string | string[]): boolean =>
     typeof content === "string" || content.length === 1;
 
   return (

@@ -8,15 +8,14 @@ type Props = {
 
 const CharactersList = ({ characters }: Props) => {
   const router = useRouter();
+  const currentPage: number = +router.query.page;
 
   const calcItemId = (itemIndex: number, currentPage: number) => {
     if (currentPage === 1) return itemIndex;
     return itemIndex + (currentPage - 1) * 10;
   };
 
-  const getItemId = (index: number) => {
-    const currentPage: number = +router.query.page;
-
+  const getItemId = (index: number): number => {
     return calcItemId(index + 1, currentPage);
   };
 
