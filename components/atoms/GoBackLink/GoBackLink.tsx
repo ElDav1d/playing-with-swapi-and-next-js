@@ -27,37 +27,12 @@ const GoBackLink = () => {
   const listerPath = "characters-list";
 
   const getListerPageQuery = (queryID: string): number => {
-    const characterID = parseInt(queryID);
-    let listerPageQuery;
-    switch (true) {
-      case characterID < 11:
-        listerPageQuery = 1;
-        break;
-      case characterID < 21:
-        listerPageQuery = 2;
-        break;
-      case characterID < 31:
-        listerPageQuery = 3;
-        break;
-      case characterID < 41:
-        listerPageQuery = 4;
-        break;
-      case characterID < 51:
-        listerPageQuery = 5;
-        break;
-      case characterID < 61:
-        listerPageQuery = 6;
-        break;
-      case characterID < 71:
-        listerPageQuery = 7;
-        break;
-      case characterID < 81:
-        listerPageQuery = 8;
-        break;
-      default:
-        listerPageQuery = 9;
+    if (parseInt(queryID) <= 10) {
+      return 1;
+    } else {
+      const [ten, unit] = queryID.split("");
+      return parseInt(unit) === 0 ? parseInt(ten) : parseInt(ten) + 1;
     }
-    return listerPageQuery;
   };
 
   return (
