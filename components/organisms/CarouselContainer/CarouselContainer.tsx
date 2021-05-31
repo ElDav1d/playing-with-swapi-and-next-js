@@ -20,37 +20,32 @@ const responsive = {
 const CarouselContainer = () => {
   return (
     <Carousel
-      // autoPlay={true}
+      autoPlay={true}
       autoPlaySpeed={5000}
       infinite={true}
       responsive={responsive}
       transitionDuration={1000}
+      sliderClass={"CarouselContailer_UlOverride"}
     >
       <Image
         src="https://vignette.wikia.nocookie.net/starwars/images/2/20/LukeTLJ.jpg"
         alt=""
-        layout="responsive"
+        layout="fill"
         objectFit="cover"
-        width={100}
-        height={100}
       />
 
       <Image
         src="https://vignette.wikia.nocookie.net/starwars/images/4/48/Chewbacca_TLJ.png"
         alt=""
-        layout="responsive"
+        layout="fill"
         objectFit="cover"
-        width={100}
-        height={100}
       />
 
       <Image
         src="https://vignette.wikia.nocookie.net/starwars/images/e/e2/TFAHanSolo.png"
         alt=""
-        layout="responsive"
+        layout="fill"
         objectFit="cover"
-        width={100}
-        height={100}
       />
     </Carousel>
   );

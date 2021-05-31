@@ -3,7 +3,13 @@ import Layout from "../components/templates/Layout/Layout";
 import CarouselContainer from "../components/organisms/CarouselContainer/CarouselContainer";
 
 const Title = styled.h1`
-  margin: 5rem 1rem;
+  margin: 1rem;
+  @media (min-width: 768px) {
+    margin: 2.5rem 1rem;
+  }
+  @media (min-width: 1024px) {
+    margin: 3rem 1rem;
+  }
 `;
 
 export default function Home() {
