@@ -1,5 +1,6 @@
 import "react-multi-carousel/lib/styles.css";
 import Carousel from "react-multi-carousel";
+import Image from "next/image";
 
 const responsive = {
   desktop: {
@@ -19,25 +20,37 @@ const responsive = {
 const CarouselContainer = () => {
   return (
     <Carousel
-      autoPlay={true}
+      // autoPlay={true}
       autoPlaySpeed={5000}
       infinite={true}
       responsive={responsive}
       transitionDuration={1000}
     >
-      <img
+      <Image
         src="https://vignette.wikia.nocookie.net/starwars/images/2/20/LukeTLJ.jpg"
         alt=""
+        layout="responsive"
+        objectFit="cover"
+        width={100}
+        height={100}
       />
 
-      <img
+      <Image
         src="https://vignette.wikia.nocookie.net/starwars/images/4/48/Chewbacca_TLJ.png"
         alt=""
+        layout="responsive"
+        objectFit="cover"
+        width={100}
+        height={100}
       />
 
-      <img
+      <Image
         src="https://vignette.wikia.nocookie.net/starwars/images/e/e2/TFAHanSolo.png"
         alt=""
+        layout="responsive"
+        objectFit="cover"
+        width={100}
+        height={100}
       />
     </Carousel>
   );
