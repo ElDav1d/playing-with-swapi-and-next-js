@@ -33,6 +33,12 @@ describe("Character Page", () => {
     expect(footer).toBeInTheDocument();
   })
 
+  it("doesn't render a filter search input", () => {
+    const searchInput = screen.queryByRole('textbox', { placeholder: /type something/i });
+
+    expect(searchInput).toBeNull();
+  })
+
   it("it first renders a heading with the character's name", () => {
     const pageHeadings = screen.getAllByRole('heading');
 
