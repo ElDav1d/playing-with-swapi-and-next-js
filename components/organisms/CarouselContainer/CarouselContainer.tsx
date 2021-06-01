@@ -17,7 +17,9 @@ const responsive = {
   },
 };
 
-const CarouselContainer = () => {
+const CarouselContainer = ({ pics }) => {
+  console.log(pics);
+
   return (
     <Carousel
       autoPlay={true}

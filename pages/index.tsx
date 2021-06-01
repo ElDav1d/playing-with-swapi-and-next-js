@@ -1,6 +1,13 @@
+import { mockHomeCarouselPics } from "../mocks";
+import { GetStaticProps } from "next";
+import { CarouselPics } from "../interfaces";
 import styled from "styled-components";
 import Layout from "../components/templates/Layout/Layout";
 import CarouselContainer from "../components/organisms/CarouselContainer/CarouselContainer";
+
+type Props = {
+  picsOnCarousel: CarouselPics;
+};
 
 const Title = styled.h1`
   margin: 1rem;
@@ -12,11 +19,21 @@ const Title = styled.h1`
   }
 `;
 
-export default function Home() {
+export default function Home({ picsOnCarousel }: Props) {
   return (
     <Layout title="Star Wars Character Database Home Page">
       <Title>Home Page</Title>
-      <CarouselContainer />
+      <CarouselContainer pics={picsOnCarousel} />
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const picsOnCarousel = mockHomeCarouselPics;
+
+  return {
+    props: {
+      picsOnCarousel,
+    },
+  };
+};
