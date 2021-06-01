@@ -1,6 +1,6 @@
 import "react-multi-carousel/lib/styles.css";
+import CarouselPic from "../../atoms/CarouselPic/CarouselPic";
 import Carousel from "react-multi-carousel";
-import Image from "next/image";
 
 const responsive = {
   desktop: {
@@ -17,9 +17,7 @@ const responsive = {
   },
 };
 
-const CarouselContainer = ({ pics }) => {
-  console.log(pics);
-
+const CarouselContainer = ({ carouselPics }) => {
   return (
     <Carousel
       autoPlay={true}
@@ -29,26 +27,9 @@ const CarouselContainer = ({ pics }) => {
       transitionDuration={1000}
       sliderClass={"CarouselContailer_UlOverride"}
     >
-      <Image
-        src="https://vignette.wikia.nocookie.net/starwars/images/2/20/LukeTLJ.jpg"
-        alt=""
-        layout="fill"
-        objectFit="cover"
-      />
-
-      <Image
-        src="https://vignette.wikia.nocookie.net/starwars/images/4/48/Chewbacca_TLJ.png"
-        alt=""
-        layout="fill"
-        objectFit="cover"
-      />
-
-      <Image
-        src="https://vignette.wikia.nocookie.net/starwars/images/e/e2/TFAHanSolo.png"
-        alt=""
-        layout="fill"
-        objectFit="cover"
-      />
+      {carouselPics.map(({ path, title, alt }, index) => (
+        <CarouselPic path={path} title={title} alt={alt} key={index} />
+      ))}
     </Carousel>
   );
 };

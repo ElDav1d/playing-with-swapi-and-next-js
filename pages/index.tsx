@@ -23,7 +23,7 @@ export default function Home({ picsOnCarousel }: Props) {
   return (
     <Layout title="Star Wars Character Database Home Page">
       <Title>Home Page</Title>
-      <CarouselContainer pics={picsOnCarousel} />
+      <CarouselContainer carouselPics={picsOnCarousel} />
     </Layout>
   );
 }
