@@ -2,6 +2,7 @@ import Link from "next/Link";
 import { useRouter } from "next/router";
 import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPage, VisitedPages } from "../../../interfaces";
+import { createPayload } from "../../../utils/createPayload";
 
 type Props = {
   name: string;
@@ -12,13 +13,6 @@ type Props = {
 };
 
 type ClickEvent = React.MouseEvent;
-
-const createPayload = (name: string, path: string) => {
-  return {
-    name: name,
-    path: path,
-  };
-};
 
 const pageWasVisited = (pages: VisitedPages, pageName: string) => {
   return pages.find((page: VisitedPage) => page.name === pageName);

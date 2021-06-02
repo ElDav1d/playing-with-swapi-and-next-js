@@ -10,6 +10,7 @@ jest.mock('next/router', () => ({
       route: "/",
       pathname: "character",
       query: { id: "61" },
+      push: jest.fn()
     }
   }
 }))
@@ -45,10 +46,9 @@ describe("Character Page", () => {
     expect(pageHeadings[0]).toHaveTextContent(/fulano-el-yedai/i);
   })
 
-  it("renders a link to the character's lister page", () => {
+  it("renders an accesible link to the character's lister page", () => {
     const goBackLink = screen.getByRole('link', { name: /go back/i });
-
-    expect(goBackLink).toHaveAttribute('href', '/characters-list/7');
+    expect(goBackLink).toBeInTheDocument();
   })
 
   it("renders a 3 items films' list nested into a main details list", async () => {

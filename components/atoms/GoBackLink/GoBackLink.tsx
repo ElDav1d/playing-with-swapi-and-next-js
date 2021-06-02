@@ -1,5 +1,12 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useCharactersContext } from "../../../context/Characters";
+import { createPayload } from "../../../utils";
+
+type ClickEvent = React.MouseEvent;
+interface getQueryCallback {
+  (query: string): number;
+}
 
 const StyledGoBackLink = styled.a`
   text-decoration: none;
@@ -21,24 +28,50 @@ const StyledGoBackLink = styled.a`
   }
 `;
 
-const GoBackLink = () => {
+export const LISTER_PATH_NAME = "characters-list";
+
+export const getListerPageQuery = (queryID: string): number => {
+  if (parseInt(queryID) <= 10) {
+    return 1;
+  } else {
+    const [ten, unit] = queryID.split("");
+    return parseInt(unit) === 0 ? parseInt(ten) : parseInt(ten) + 1;
+  }
+};
+
+export const getListerPagePath = (
+  path: string,
+  queryGetter: getQueryCallback,
+  query: string
+): string => `/${path}/${queryGetter(query)}`;
+
+const GoBackLink = ({ characterName }) => {
   const router = useRouter();
   const currentQuery = router.query.id.toString();
-  const listerPath = "characters-list";
+  const { state, dispatch } = useCharactersContext();
+  const visitedPages = state.visitedCharacterPages;
 
-  const getListerPageQuery = (queryID: string): number => {
-    if (parseInt(queryID) <= 10) {
-      return 1;
-    } else {
-      const [ten, unit] = queryID.split("");
-      return parseInt(unit) === 0 ? parseInt(ten) : parseInt(ten) + 1;
+  const clickHandler = (event: ClickEvent): void => {
+    event.preventDefault();
+
+    if (!visitedPages.length) {
+      dispatch({
+        type: "ADD_VISITED_CHARACTER",
+        payload: createPayload(characterName, router.pathname),
+      });
     }
+
+    router.push({
+      pathname: getListerPagePath(
+        LISTER_PATH_NAME,
+        getListerPageQuery,
+        currentQuery
+      ),
+    });
   };
 
   return (
-    <StyledGoBackLink
-      href={`/${listerPath}/${getListerPageQuery(currentQuery)}`}
-    >
+    <StyledGoBackLink href="/" onClick={clickHandler}>
       GO BACK
     </StyledGoBackLink>
   );

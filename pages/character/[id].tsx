@@ -22,7 +22,7 @@ export default function CharacterPage({ character }: Props) {
     <Layout title={`${character.name}'s page`}>
       <Title>{character.name}</Title>
       <CharacterDetailsList details={character} />
-      <GoBackLink />
+      <GoBackLink characterName={character.name} />
     </Layout>
   );
 }
