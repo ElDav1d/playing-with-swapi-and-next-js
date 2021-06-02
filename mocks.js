@@ -6,6 +6,8 @@ export const mockCharacter = {
   index: 1
 }
 
+export const mockQueryID = "61";
+
 export const mockCharacterList = [
   mockCharacter,
   {
