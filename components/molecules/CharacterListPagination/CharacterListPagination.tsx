@@ -7,13 +7,13 @@ type PageIndex = {
 };
 
 const CharacterListPagination = () => {
-  const { dispatch } = useCharactersContext();
+  const { charactersContextDispatch } = useCharactersContext();
   const router = useRouter();
 
   const paginationHandler = (page: PageIndex): void => {
     const selectedPath = (page.selected + 1).toString();
 
-    dispatch({
+    charactersContextDispatch({
       type: "UPDATE_FILTER_KEYWORD",
       payload: "",
     });

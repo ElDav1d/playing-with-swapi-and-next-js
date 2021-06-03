@@ -28,20 +28,21 @@ const CharactersListItem = ({
   const MAX_VISITED_PAGES: number = 3;
   const router = useRouter();
   const characterPath: string = `/character/${index}`;
-  const { state, dispatch } = useCharactersContext();
-  const visitedPages = state.visitedCharacterPages;
+  const { charactersContextState, charactersContextDispatch } =
+    useCharactersContext();
+  const visitedPages = charactersContextState.visitedCharacterPages;
 
   const clickHandler = (event: ClickEvent): void => {
     event.preventDefault();
 
     if (!pageWasVisited(visitedPages, name)) {
       if (visitedPages.length === MAX_VISITED_PAGES) {
-        dispatch({
+        charactersContextDispatch({
           type: "DELETE_VISITED_CHARACTER",
           payload: "",
         });
       }
-      dispatch({
+      charactersContextDispatch({
         type: "ADD_VISITED_CHARACTER",
         payload: createPayload(name, characterPath),
       });

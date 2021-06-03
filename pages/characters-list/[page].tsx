@@ -13,8 +13,8 @@ type Props = {
 type PageParam = string;
 
 export default function ListerPage({ charactersOnPage }: Props) {
-  const { state } = useCharactersContext();
-  const filterKeyword: string = state.filterCharactersKeyword;
+  const { charactersContextState } = useCharactersContext();
+  const filterKeyword: string = charactersContextState.filterCharactersKeyword;
   const filteredCharacters = charactersOnPage.filter(
     ({ name, species, homeworld, films }) => {
       return (

@@ -48,14 +48,15 @@ export const getListerPagePath = (
 const GoBackLink = ({ characterName }) => {
   const router = useRouter();
   const currentQuery = router.query.id.toString();
-  const { state, dispatch } = useCharactersContext();
-  const visitedPages = state.visitedCharacterPages;
+  const { charactersContextState, charactersContextDispatch } =
+    useCharactersContext();
+  const visitedPages = charactersContextState.visitedCharacterPages;
 
   const clickHandler = (event: ClickEvent): void => {
     event.preventDefault();
 
     if (!visitedPages.length) {
-      dispatch({
+      charactersContextDispatch({
         type: "ADD_VISITED_CHARACTER",
         payload: createPayload(characterName, router.pathname),
       });

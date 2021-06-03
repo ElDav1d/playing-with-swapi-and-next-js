@@ -27,20 +27,19 @@ const [mainReducer, initialState] = combineReducers<CombinedReducer>({
   filterCharactersKeyword: [filterKeywordReducer, initialFilterState],
 });
 
-const CharactersContext = createContext<
-  | {
-      state: State;
-      dispatch: Dispatch;
-    }
-  | undefined
->(undefined);
+const CharactersContext =
+  createContext<
+    | {
+        charactersContextState: State;
+        charactersContextDispatch: Dispatch;
+      }
+    | undefined
+  >(undefined);
 
 const CharactersContextProvider = ({ children }: ContextProviderProps) => {
-  const [state, dispatch] = useReducer<CombinedReducer>(
-    mainReducer,
-    initialState
-  );
-  const value = { state, dispatch };
+  const [charactersContextState, charactersContextDispatch] =
+    useReducer<CombinedReducer>(mainReducer, initialState);
+  const value = { charactersContextState, charactersContextDispatch };
 
   return (
     <CharactersContext.Provider value={value}>
