@@ -7,8 +7,14 @@ import CharacterDetailsList from "../../components/molecules/CharacterDetailsLis
 import Layout from "../../components/templates/Layout/Layout";
 import { getNestedData } from "../../utils";
 
-const Title = styled.h1`
+const MainHeading = styled.h1`
   margin: 1rem;
+  @media (min-width: 768px) {
+    margin: 2.5rem 1rem;
+  }
+  @media (min-width: 1024px) {
+    margin: 3rem 1rem;
+  }
 `;
 
 type Props = {
@@ -20,7 +26,7 @@ type PageParam = string;
 export default function CharacterPage({ character }: Props) {
   return (
     <Layout title={`${character.name}'s page`}>
-      <Title>{character.name}</Title>
+      <MainHeading>{character.name}</MainHeading>
       <CharacterDetailsList details={character} />
       <GoBackLink characterName={character.name} />
     </Layout>

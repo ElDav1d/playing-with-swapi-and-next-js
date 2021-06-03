@@ -31,3 +31,11 @@ export type CharacterDetailItem = {
   detailTitle: string;
   detailContent: string | string[];
 };
+
+export type CarouselPics = CarouselPic[];
+
+export type CarouselPic = {
+  path: string;
+  title: string;
+  alt: string;
+};

@@ -164,10 +164,23 @@ describe("characters' list displays", () => {
     userEvent.type(searchInput, 'condemor');
     act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
 
-    const filterFailMessage = await screen.findByTestId('filter-fail-message-block');
-
     expect(charactersList).not.toBeInTheDocument();
-    expect(filterFailMessage).toBeInTheDocument();
+  })
+
+  it("an error message when not matching search input", async () => {
+    const DEBOUNCE_TIME = 750
+    const HEADING_TEXT = /these are not the droids you're looking for/i;
+    const SUBHEADING_TEXT = /try searching for something else!/i
+    const searchInput = screen.getByRole('textbox', { placeholder: /type something/i });
+
+    userEvent.type(searchInput, 'condemor');
+    act(() => jest.advanceTimersByTime(DEBOUNCE_TIME))
+
+    const filterFailHeading = await screen.findByRole('heading', { name: HEADING_TEXT });
+    const filterFailSubheading = await screen.findByRole('heading', { name: SUBHEADING_TEXT });
+
+    expect(filterFailHeading).toBeInTheDocument();
+    expect(filterFailSubheading).toBeInTheDocument();
   })
 
   it("one item when specific search input match", async () => {

@@ -2,6 +2,12 @@
 
 A Next.js / React challenge consisting on creating an Star Wars fansite with some content and features.
 
+## REVIEW PROJECT'S PROGRESS
+
+Although this is a solo effort I'm keeping the git regular flow by doing Pull Requests, so my progress can be more traced and documented.
+
+In order to **know more about technical decissions** feel free to [check any merged Pull request](https://github.com/ElDav1d/playing-with-swapi-and-next-js/pulls?q=is%3Apr+is%3Amerged).
+
 ## ACCEPTANCE CRITERIA
 
 Create an Star Wars fansite with the following content:

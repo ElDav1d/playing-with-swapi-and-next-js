@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
 
 import { CharacterItems } from "../../interfaces";
@@ -6,10 +5,6 @@ import { useCharactersContext } from "../../context/Characters";
 import Layout from "../../components/templates/Layout/Layout";
 import CharactersListContainer from "../../components/organisms/CharactersListContainer/CharactersListContainer";
 import { getNestedData } from "../../utils";
-
-const Title = styled.h1`
-  margin: 1rem;
-`;
 
 type Props = {
   charactersOnPage: CharacterItems;
