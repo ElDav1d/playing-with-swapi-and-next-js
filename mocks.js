@@ -30,3 +30,21 @@ export const mockCharacterList = [
     index: 4,
   },
 ]
+
+export const mockHomeCarouselPics = [
+  {
+    path: "https://vignette.wikia.nocookie.net/starwars/images/2/20/LukeTLJ.jpg",
+    title: "Luke Skywalker",
+    alt: "An old version of Luke Skywalker"
+  },
+  {
+    path: "https://vignette.wikia.nocookie.net/starwars/images/e/e2/TFAHanSolo.png",
+    title: "Han Solo",
+    alt: "An old version of Han Solo"
+  },
+  {
+    path: "https://vignette.wikia.nocookie.net/starwars/images/4/48/Chewbacca_TLJ.png",
+    title: "Chewbacca",
+    alt: "A non so old version of Chewbacca"
+  },
+]

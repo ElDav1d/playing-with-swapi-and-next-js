@@ -13,3 +13,11 @@ export type CharacterItem = {
 };
 
 export type CharacterItems = CharacterItem[];
+
+export type CarouselPics = CarouselPic[];
+
+export type CarouselPic = {
+  path: string;
+  title: string;
+  alt: string;
+};
