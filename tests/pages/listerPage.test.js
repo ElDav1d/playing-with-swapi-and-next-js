@@ -11,10 +11,6 @@ jest.mock('next/router', () => ({
       route: "/",
       pathname: "characters-list",
       query: { page: "1" },
-      events: {
-        on: () => { },
-        off: () => { },
-      },
       push: jest.fn()
     }
   }
