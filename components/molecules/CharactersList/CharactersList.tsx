@@ -7,8 +7,8 @@ type Props = {
 };
 
 const CharactersList = ({ characters }: Props) => {
-  const router = useRouter();
-  const currentPage: number = +router.query.page;
+  const { query } = useRouter();
+  const currentPage: number = +query.page;
 
   const calcItemId = (itemIndex: number, currentPage: number) => {
     if (currentPage === 1) return itemIndex;

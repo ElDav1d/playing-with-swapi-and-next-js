@@ -46,8 +46,8 @@ export const getListerPagePath = (
 ): string => `/${path}/${queryGetter(query)}`;
 
 const GoBackLink = ({ characterName }) => {
-  const router = useRouter();
-  const currentQuery = router.query.id.toString();
+  const { query, pathname, push } = useRouter();
+  const currentQuery = query.id.toString();
   const { charactersContextState, charactersContextDispatch } =
     useCharactersContext();
   const visitedPages = charactersContextState.visitedCharacterPages;
@@ -58,11 +58,11 @@ const GoBackLink = ({ characterName }) => {
     if (!visitedPages.length) {
       charactersContextDispatch({
         type: "ADD_VISITED_CHARACTER",
-        payload: createPayload(characterName, router.pathname),
+        payload: createPayload(characterName, pathname),
       });
     }
 
-    router.push({
+    push({
       pathname: getListerPagePath(
         LISTER_PATH_NAME,
         getListerPageQuery,

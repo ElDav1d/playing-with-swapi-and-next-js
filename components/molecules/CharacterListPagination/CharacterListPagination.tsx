@@ -8,7 +8,7 @@ type PageIndex = {
 
 const CharacterListPagination = () => {
   const { charactersContextDispatch } = useCharactersContext();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const paginationHandler = (page: PageIndex): void => {
     const selectedPath = (page.selected + 1).toString();
@@ -18,7 +18,7 @@ const CharacterListPagination = () => {
       payload: "",
     });
 
-    router.push({
+    push({
       pathname: selectedPath,
     });
 

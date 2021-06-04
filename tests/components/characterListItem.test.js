@@ -4,6 +4,14 @@ import { mockCharacter } from '../../mocks';
 import { CharactersContextProvider } from '../../context/Characters';
 import CharactersListItem from '../../components/atoms/CharactersListItem/CharactersListItem';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      push: jest.fn()
+    }
+  }
+}))
+
 describe(CharactersListItem, () => {
   it('renders a list item with a link to a character page', () => {
     render(

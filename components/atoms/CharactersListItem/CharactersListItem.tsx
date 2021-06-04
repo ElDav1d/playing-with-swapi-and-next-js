@@ -26,7 +26,7 @@ const CharactersListItem = ({
   index,
 }: Props) => {
   const MAX_VISITED_PAGES: number = 3;
-  const router = useRouter();
+  const { push } = useRouter();
   const characterPath: string = `/character/${index}`;
   const { charactersContextState, charactersContextDispatch } =
     useCharactersContext();
@@ -48,7 +48,7 @@ const CharactersListItem = ({
       });
     }
 
-    router.push({ pathname: characterPath });
+    push({ pathname: characterPath });
     return;
   };
 
