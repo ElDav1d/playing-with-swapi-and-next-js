@@ -9,22 +9,23 @@ interface getQueryCallback {
 }
 
 const StyledGoBackLink = styled.a`
-  text-decoration: none;
-  position: relative;
-  display: inline-block;
+  border-bottom: solid 1px blue;
   color: blue;
   cursor: pointer;
-  margin-top: 1rem;
-  margin-left: 0.75rem;
+  display: inline-block;
   margin-bottom: 1rem;
+  margin-left: 0.75rem;
+  margin-top: 1rem;
   padding-bottom: 0.25rem;
+  position: relative;
+  text-decoration: none;
   text-transform: uppercase;
-  border-bottom: solid 1px blue;
+
   &:before {
-    position: absolute;
-    left: -1rem;
     content: "<";
     height: 1em;
+    left: -1rem;
+    position: absolute;
   }
 `;
 

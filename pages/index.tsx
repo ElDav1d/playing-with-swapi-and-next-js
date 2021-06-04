@@ -11,9 +11,11 @@ type Props = {
 
 const MainHeading = styled.h1`
   margin: 1rem;
+
   @media (min-width: 768px) {
     margin: 2.5rem 1rem;
   }
+
   @media (min-width: 1024px) {
     margin: 3rem 1rem;
   }
