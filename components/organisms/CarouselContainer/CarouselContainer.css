@@ -9,17 +9,11 @@
 }
 
 @media (min-width: 1024px) {
-  .CarouselContailer_UlOverride {
-    height: 85vh;
+  .react-multi-carousel-list {
+    margin-bottom: 5rem;
   }
 }
 
 .react-multi-carousel-list {
   margin-bottom: 3rem;
-}
-
-@media (min-width: 1024px) {
-  .react-multi-carousel-list {
-    margin-bottom: 5rem;
-  }
 }

@@ -4,6 +4,7 @@ import { CharacterItems } from "../../interfaces";
 import { useCharactersContext } from "../../context/Characters";
 import Layout from "../../components/templates/Layout/Layout";
 import CharactersListContainer from "../../components/organisms/CharactersListContainer/CharactersListContainer";
+import { getNestedData } from "../../utils";
 
 type Props = {
   charactersOnPage: CharacterItems;
@@ -12,8 +13,8 @@ type Props = {
 type PageParam = string;
 
 export default function ListerPage({ charactersOnPage }: Props) {
-  const { state } = useCharactersContext();
-  const filterKeyword: string = state.filterCharactersKeyword;
+  const { charactersContextState } = useCharactersContext();
+  const filterKeyword: string = charactersContextState.filterCharactersKeyword;
   const filteredCharacters = charactersOnPage.filter(
     ({ name, species, homeworld, films }) => {
       return (
@@ -48,45 +49,6 @@ const getPageData = async (page: PageParam) => {
   );
 
   return pageData;
-};
-
-const getNestedData = async (data: string | string[], key: string) => {
-  if (typeof data === "string") {
-    return getStringData(data, key);
-  } else {
-    return getArrayData(data, key);
-  }
-};
-
-const getStringData = async (data: string, key: string) => {
-  const res = await fetch(`${data}`);
-  const dataItem = await res.json();
-
-  return dataItem[key];
-};
-
-const getArrayData = async (data: string[], key: string) => {
-  if (data.length) {
-    const errorMessage = [];
-
-    const nestedData = await Promise.all(
-      data.map(async dataURL => {
-        const res = await fetch(`${dataURL}`);
-        const dataItem = await res.json();
-
-        if (!res.ok) {
-          errorMessage.push("Sorry, there's a disturbance on The Force");
-          throw new Error(`An error has occured: ${res.status}`);
-        } else {
-          return dataItem[key];
-        }
-      })
-    );
-
-    return errorMessage.length ? errorMessage : nestedData;
-  } else {
-    return ["Sorry, this data is unknown!"];
-  }
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

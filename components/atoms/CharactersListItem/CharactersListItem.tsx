@@ -1,8 +1,8 @@
 import Link from "next/Link";
 import { useRouter } from "next/router";
-import { link } from "node:fs";
 import { useCharactersContext } from "../../../context/Characters";
 import { VisitedPage, VisitedPages } from "../../../interfaces";
+import { createPayload } from "../../../utils/createPayload";
 
 type Props = {
   name: string;
@@ -13,13 +13,6 @@ type Props = {
 };
 
 type ClickEvent = React.MouseEvent;
-
-const createPayload = (name: string, path: string) => {
-  return {
-    name: name,
-    path: path,
-  };
-};
 
 const pageWasVisited = (pages: VisitedPages, pageName: string) => {
   return pages.find((page: VisitedPage) => page.name === pageName);
@@ -33,28 +26,30 @@ const CharactersListItem = ({
   index,
 }: Props) => {
   const MAX_VISITED_PAGES: number = 3;
-  const router = useRouter();
+  const { push } = useRouter();
   const characterPath: string = `/character/${index}`;
-  const { state, dispatch } = useCharactersContext();
-  const visitedPages = state.visitedCharacterPages;
+  const { charactersContextState, charactersContextDispatch } =
+    useCharactersContext();
+  const visitedPages = charactersContextState.visitedCharacterPages;
 
-  const clickHandler = (event: ClickEvent) => {
+  const clickHandler = (event: ClickEvent): void => {
     event.preventDefault();
 
     if (!pageWasVisited(visitedPages, name)) {
       if (visitedPages.length === MAX_VISITED_PAGES) {
-        dispatch({
+        charactersContextDispatch({
           type: "DELETE_VISITED_CHARACTER",
           payload: "",
         });
       }
-      dispatch({
+      charactersContextDispatch({
         type: "ADD_VISITED_CHARACTER",
         payload: createPayload(name, characterPath),
       });
     }
 
-    router.push({ pathname: characterPath });
+    push({ pathname: characterPath });
+    return;
   };
 
   return (

@@ -1,0 +1,1 @@
+export { getArrayData } from "./getArrayData";

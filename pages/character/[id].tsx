@@ -1,23 +1,14 @@
-import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
+
+import { CharacterDetailData } from "../../interfaces";
+import GoBackLink from "../../components/atoms/GoBackLink/GoBackLink";
+import CharacterDetailsList from "../../components/molecules/CharacterDetailsList/CharaterDetailsList";
 import Layout from "../../components/templates/Layout/Layout";
-
-const MainHeading = styled.h1`
-  margin: 1rem;
-  @media (min-width: 768px) {
-    margin: 2.5rem 1rem;
-  }
-  @media (min-width: 1024px) {
-    margin: 3rem 1rem;
-  }
-`;
-
-type CharacterData = {
-  name: string;
-};
+import { MainHeading } from "../../components/atoms/StyledHeadings/StyledHeadings";
+import { getNestedData } from "../../utils";
 
 type Props = {
-  character: CharacterData;
+  character: CharacterDetailData;
 };
 
 type PageParam = string;
@@ -26,6 +17,8 @@ export default function CharacterPage({ character }: Props) {
   return (
     <Layout title={`${character.name}'s page`}>
       <MainHeading>{character.name}</MainHeading>
+      <CharacterDetailsList details={character} />
+      <GoBackLink characterName={character.name} />
     </Layout>
   );
 }
@@ -33,7 +26,19 @@ export default function CharacterPage({ character }: Props) {
 const getCharacterData = async (id: PageParam) => {
   const res = await fetch(`https://swapi.dev/api/people/${id}/`);
   const data = await res.json();
-  return data;
+
+  return {
+    name: data.name,
+    species: await getNestedData(data.species, "name"),
+    homeworld: await getNestedData(data.homeworld, "name"),
+    height: data.height,
+    mass: data.mass,
+    hair_color: data.hair_color,
+    skin_color: data.skin_color,
+    eye_color: data.eye_color,
+    gender: data.gender,
+    films: await getNestedData(data.films, "title"),
+  };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

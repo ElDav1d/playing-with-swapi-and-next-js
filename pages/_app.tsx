@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import GlobalStyle from "../styles/GlobalStyle";
+import GlobalStyle from "../components/templates/GlobalStyles/GlobalStyle";
 import { CharactersContextProvider } from "../context/Characters";
 import "../components/organisms/CarouselContainer/CarouselContainer.css";
 
