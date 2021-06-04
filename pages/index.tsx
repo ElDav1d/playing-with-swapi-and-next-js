@@ -1,25 +1,13 @@
 import { mockHomeCarouselPics } from "../mocks";
 import { GetStaticProps } from "next";
 import { CarouselPics } from "../interfaces";
-import styled from "styled-components";
 import Layout from "../components/templates/Layout/Layout";
 import CarouselContainer from "../components/organisms/CarouselContainer/CarouselContainer";
+import { MainHeading } from "../components/atoms/StyledHeadings/StyledHeadings";
 
 type Props = {
   picsOnCarousel: CarouselPics;
 };
-
-const MainHeading = styled.h1`
-  margin: 1rem;
-
-  @media (min-width: 768px) {
-    margin: 2.5rem 1rem;
-  }
-
-  @media (min-width: 1024px) {
-    margin: 3rem 1rem;
-  }
-`;
 
 const HOME_PAGE_TITLE: string = "Star Wars Character Database Home Page";
 

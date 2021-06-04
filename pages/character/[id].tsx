@@ -1,23 +1,11 @@
-import styled from "styled-components";
 import { GetStaticProps, GetStaticPaths } from "next";
 
 import { CharacterDetailData } from "../../interfaces";
 import GoBackLink from "../../components/atoms/GoBackLink/GoBackLink";
 import CharacterDetailsList from "../../components/molecules/CharacterDetailsList/CharaterDetailsList";
 import Layout from "../../components/templates/Layout/Layout";
+import { MainHeading } from "../../components/atoms/StyledHeadings/StyledHeadings";
 import { getNestedData } from "../../utils";
-
-const MainHeading = styled.h1`
-  margin: 1rem;
-
-  @media (min-width: 768px) {
-    margin: 2.5rem 1rem;
-  }
-
-  @media (min-width: 1024px) {
-    margin: 3rem 1rem;
-  }
-`;
 
 type Props = {
   character: CharacterDetailData;

@@ -1,33 +1,12 @@
 import { useRouter } from "next/router";
-import styled from "styled-components";
 import { useCharactersContext } from "../../../context/Characters";
 import { createPayload } from "../../../utils";
+import { CaretLink } from "../../atoms/StyledLinks/StyledLinks";
 
 type ClickEvent = React.MouseEvent;
 interface getQueryCallback {
   (query: string): number;
 }
-
-const StyledGoBackLink = styled.a`
-  border-bottom: solid 1px blue;
-  color: blue;
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: 1rem;
-  margin-left: 0.75rem;
-  margin-top: 1rem;
-  padding-bottom: 0.25rem;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-
-  &:before {
-    content: "<";
-    height: 1em;
-    left: -1rem;
-    position: absolute;
-  }
-`;
 
 export const LISTER_PATH_NAME = "characters-list";
 
@@ -73,9 +52,9 @@ const GoBackLink = ({ characterName }) => {
   };
 
   return (
-    <StyledGoBackLink href="/" onClick={clickHandler}>
+    <CaretLink Left href="/" onClick={clickHandler}>
       GO BACK
-    </StyledGoBackLink>
+    </CaretLink>
   );
 };
 
